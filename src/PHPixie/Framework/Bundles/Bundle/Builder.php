@@ -1,20 +1,15 @@
 <?php
 
-namespace PHPixie\Framework;
+namespace PHPixie\Framework\Bundles\Bundle;
 
-abstract class Bundles
+class Builder
 {
-    protected $builder;
     protected $instances = array();
     
-    public function __construct($builder)
-    {
-        $this->builder = $builder;
-    }
-    
-    public function get($name)
+    protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
+            $method = 'build'.ucfirst($name);
             $this->instances[$name] = $this->$method();
         }
         

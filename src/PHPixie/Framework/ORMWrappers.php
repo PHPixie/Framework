@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPixie\Framework\ORM;
+namespace PHPixie\Framework;
 
-class Wrappers
+class ORMWrappers implements \PHPixie\ORM\Wrappers
 {
     protected $wrappersMap;
     protected $maps;
