@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\Framework\Processors\Processor;
+namespace PHPixie\Framework\HTTP\Processor;
 
 class Dispatch
 {

@@ -21,12 +21,12 @@ class Environment
         $this->instance('configData');
     }
     
-    public function routeRegistry()
+    public function route()
     {
     
     }
     
-    public function locatorRegistry()
+    public function locator()
     {
     
     }

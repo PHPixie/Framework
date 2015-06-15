@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd143e50057b4658bebdb9053ba15fcd",
+    "hash": "68ec0e0caaf430c98b15007f3ce42556",
     "packages": [
         {
             "name": "phpixie/config",
@@ -166,12 +166,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Filesystem.git",
-                "reference": "3c8ff2abe9c06bc223ef3d847faa01beb2c094c9"
+                "reference": "4bf8ef5c5690bb30a5554226df44545a82d736b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Filesystem/zipball/3c8ff2abe9c06bc223ef3d847faa01beb2c094c9",
-                "reference": "3c8ff2abe9c06bc223ef3d847faa01beb2c094c9",
+                "url": "https://api.github.com/repos/PHPixie/Filesystem/zipball/4bf8ef5c5690bb30a5554226df44545a82d736b1",
+                "reference": "4bf8ef5c5690bb30a5554226df44545a82d736b1",
                 "shasum": ""
             },
             "require": {
@@ -209,7 +209,7 @@
                 "file",
                 "filesystem"
             ],
-            "time": "2015-05-05 23:17:21"
+            "time": "2015-06-05 15:23:54"
         },
         {
             "name": "phpixie/http",
@@ -322,12 +322,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/ORM.git",
-                "reference": "c37ca0a7756961107c686df4f0f6c822751b9bc9"
+                "reference": "5e8fa70c16800773bae066246d27e68f304add76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/ORM/zipball/c37ca0a7756961107c686df4f0f6c822751b9bc9",
-                "reference": "c37ca0a7756961107c686df4f0f6c822751b9bc9",
+                "url": "https://api.github.com/repos/PHPixie/ORM/zipball/5e8fa70c16800773bae066246d27e68f304add76",
+                "reference": "5e8fa70c16800773bae066246d27e68f304add76",
                 "shasum": ""
             },
             "require": {
@@ -366,7 +366,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-03-25 10:18:31"
+            "time": "2015-06-12 15:15:33"
         },
         {
             "name": "phpixie/processors",
@@ -374,12 +374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Processors.git",
-                "reference": "31a9cc3d75125984f1b5b9c08eb34f3b4ec01896"
+                "reference": "df40bca7a1e6f8d33ccd0369eec0b9d77a0c889a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/31a9cc3d75125984f1b5b9c08eb34f3b4ec01896",
-                "reference": "31a9cc3d75125984f1b5b9c08eb34f3b4ec01896",
+                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/df40bca7a1e6f8d33ccd0369eec0b9d77a0c889a",
+                "reference": "df40bca7a1e6f8d33ccd0369eec0b9d77a0c889a",
                 "shasum": ""
             },
             "require-dev": {
@@ -411,9 +411,10 @@
             "description": "Processors library for PHPixie",
             "homepage": "http://phpixie.com",
             "keywords": [
+                "Chain",
                 "processors"
             ],
-            "time": "2015-05-03 16:25:11"
+            "time": "2015-05-06 00:59:49"
         },
         {
             "name": "phpixie/router",
@@ -421,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Router.git",
-                "reference": "901dde0f9ecd10294eaa5ca4015a8e0d9b4a7e24"
+                "reference": "d4a0669281bfa598981db4bbe64e79f4366d3283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Router/zipball/901dde0f9ecd10294eaa5ca4015a8e0d9b4a7e24",
-                "reference": "901dde0f9ecd10294eaa5ca4015a8e0d9b4a7e24",
+                "url": "https://api.github.com/repos/PHPixie/Router/zipball/d4a0669281bfa598981db4bbe64e79f4366d3283",
+                "reference": "d4a0669281bfa598981db4bbe64e79f4366d3283",
                 "shasum": ""
             },
             "require": {
@@ -464,9 +465,10 @@
             "homepage": "http://phpixie.com",
             "keywords": [
                 "route",
+                "router",
                 "routing"
             ],
-            "time": "2015-05-30 17:39:23"
+            "time": "2015-06-05 14:36:11"
         },
         {
             "name": "phpixie/slice",
@@ -523,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Template.git",
-                "reference": "073bbeb0c9f3cb8f62a287f1fffcfdc5cf84fbd5"
+                "reference": "0ffc4064e341c0f7adbc6e65245d1f9c1180b96f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Template/zipball/073bbeb0c9f3cb8f62a287f1fffcfdc5cf84fbd5",
-                "reference": "073bbeb0c9f3cb8f62a287f1fffcfdc5cf84fbd5",
+                "url": "https://api.github.com/repos/PHPixie/Template/zipball/0ffc4064e341c0f7adbc6e65245d1f9c1180b96f",
+                "reference": "0ffc4064e341c0f7adbc6e65245d1f9c1180b96f",
                 "shasum": ""
             },
             "require": {
@@ -567,7 +569,7 @@
                 "template",
                 "templating"
             ],
-            "time": "2015-05-06 00:22:56"
+            "time": "2015-06-03 09:39:39"
         },
         {
             "name": "psr/http-message",
