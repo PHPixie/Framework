@@ -20,4 +20,6 @@ abstract class Bundles
         
         return $this->instances[$name];
     }
+    
+    public function map(){}
 }
