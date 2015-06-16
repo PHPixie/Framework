@@ -5,8 +5,12 @@ namespace PHPixie\Framework;
 class Components
 {
     protected $builder;
+    protected $ggggg = array();
     
-    protected $instances = array();
+    public function __construct($builder)
+    {
+        $this->builder = $builder;
+    }
     
     public function slice()
     {
@@ -28,19 +32,9 @@ class Components
         return $this->instance('database');
     }
     
-    public function orm()
-    {
-        return $this->instance('orm');
-    }
-    
     public function filesystem()
     {
         return $this->instance('filesystem');
-    }
-    
-    public function template()
-    {
-        return $this->instance('template');
     }
     
     public function http()
@@ -48,19 +42,39 @@ class Components
         return $this->instance('http');
     }
     
-    public function router()
+    public function httpProcessors()
     {
-        return $this->instance('router');
+        return $this->instance('httpProcessors');
+    }
+    
+    public function orm()
+    {
+        return $this->instance('orm');
+    }
+    
+    public function processors()
+    {
+        return $this->instance('processors');
+    }
+    
+    public function template()
+    {
+        return $this->instance('template');
+    }
+    
+    public function route()
+    {
+        return $this->instance('route');
     }
 
     protected function instance($name)
     {
-        if(!array_key_exists($name, $this->instances)) {
+        if(!array_key_exists($name, $this->ggggg)) {
             $method = 'build'.ucfirst($name);
-            $this->instances[$name] = $this->$method();
+            $this->ggggg[$name] = $this->$method();
         }
         
-        return $this->instances[$name];
+        return $this->ggggg[$name];
     }
     
     protected function buildSlice()
@@ -83,34 +97,35 @@ class Components
     protected function buildDatabase()
     {
         return new \PHPixie\Database(
-            $this->environment()->config('database')
+            $this->configuration()->databaseConfig()
         );
     }
     
     protected function buildOrm()
     {
-        $environment = $this->builder->environment();
+        $configuration = $this->builder->configuration();
         
         return new \PHPixie\ORM(
-            $this->database()
-            $environment->config('orm'),
-            $environment->ormWrappers()
+            $this->database(),
+            $configuration->ormConfig(),
+            $configuration->ormWrappers()
         );
     }
     
     protected function buildFilesystem()
     {
-        return new \PHPixie\Filesystem(
-            $this->builder->environment()->rootDir()
-        );
+        return new \PHPixie\Filesystem();
     }
     
     protected function buildTemplate()
     {
+        $configuration = $this->builder->configuration();
+        
         return new \PHPixie\Template(
             $this->slice(),
-            $this->filesystem(),
-            $this->builder->environment()->config('template')
+            $configuration->templateLocator(),
+            $configuration->templateConfig(),
+            $configuration->filesystemRoot()
         );
     }
     
@@ -121,16 +136,26 @@ class Components
         );
     }
     
-    protected function buildRouter()
+    protected function buildHttpProcessors()
     {
-        $environment = $this->builder->environment();
-        
-        return new \PHPixie\Router(
-            $environment->config('router'),
-            $environment->context(),
-            $environment->routeRegistry()
+        return new \PHPixie\HTTPProcessors(
+            $this->slice()
         );
     }
     
+    protected function buildProcessors()
+    {
+        return new \PHPixie\Processors();
+    }
+    
+    protected function buildRoute()
+    {
+        return new \PHPixie\Route();
+    }
+    
+    protected function configuration()
+    {
+        return $this->builder->configuration();
+    }
     
 }

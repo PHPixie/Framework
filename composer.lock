@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68ec0e0caaf430c98b15007f3ce42556",
+    "hash": "99b5d99f1371bb7661b2b40a148fa9ea",
     "packages": [
         {
             "name": "phpixie/config",
@@ -417,17 +417,17 @@
             "time": "2015-05-06 00:59:49"
         },
         {
-            "name": "phpixie/router",
+            "name": "phpixie/route",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PHPixie/Router.git",
-                "reference": "d4a0669281bfa598981db4bbe64e79f4366d3283"
+                "url": "https://github.com/PHPixie/Route.git",
+                "reference": "6f64c58d02789e67d4aa81b6be434934e3394b83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Router/zipball/d4a0669281bfa598981db4bbe64e79f4366d3283",
-                "reference": "d4a0669281bfa598981db4bbe64e79f4366d3283",
+                "url": "https://api.github.com/repos/PHPixie/Route/zipball/6f64c58d02789e67d4aa81b6be434934e3394b83",
+                "reference": "6f64c58d02789e67d4aa81b6be434934e3394b83",
                 "shasum": ""
             },
             "require": {
@@ -468,7 +468,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2015-06-05 14:36:11"
+            "time": "2015-06-05 15:29:19"
         },
         {
             "name": "phpixie/slice",
@@ -671,7 +671,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "phpixie/debug": 20,
-        "phpixie/router": 20,
+        "phpixie/route": 20,
         "phpixie/template": 20,
         "phpixie/filesystem": 20,
         "phpixie/database": 20,

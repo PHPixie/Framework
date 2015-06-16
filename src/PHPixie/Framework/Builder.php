@@ -21,6 +21,11 @@ abstract class Builder
         $this->instance('components');
     }
     
+    public function configuration()
+    {
+        $this->instance('environment');
+    }
+    
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
