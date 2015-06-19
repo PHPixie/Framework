@@ -10,9 +10,9 @@ interface Configuration
     
     public function filesystemRoot();
     public function ormWrappers();
-    public function templateLocator();
+    public function templateFilesystemLocator();
     
+    public function httpDispatcher();
     public function routeResolver();
-    public function locator();
-    public function route();
+    public function filesystemlocator();
 }

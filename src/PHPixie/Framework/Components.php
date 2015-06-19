@@ -139,7 +139,7 @@ class Components
     protected function buildHttpProcessors()
     {
         return new \PHPixie\HTTPProcessors(
-            $this->slice()
+            $this->http()
         );
     }
     

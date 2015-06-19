@@ -103,6 +103,21 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::httpProcessors
+     * @covers ::<protected>
+     */
+    public function testHttpProcessors()
+    {
+        $this->components = $this->components(array('http'));
+        $http = $this->prepareComponent('http');
+        
+        $this->assertComponent('httpProcessors', '\PHPixie\HTTPProcessors', array(
+            'http' => $http
+        ));
+    }
+    
+    
+    /**
      * @covers ::orm
      * @covers ::<protected>
      */

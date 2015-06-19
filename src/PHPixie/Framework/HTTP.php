@@ -5,48 +5,70 @@ namespace PHPixie\Framework;
 class HTTP
 {
     protected $builder;
-    protected $configData;
+    protected $processor;
     
-    public function __construct($builder, $configData)
+    public function __construct($builder)
     {
-        $this->builder    = $builder;
-        $this->configData = $configData;
+        $this->builder = $builder;
     }
     
-    public function checkRoute()
+    public function processor()
     {
-        new Processors\CheckRoute(
-            $this->builder->dispatcher()
-        );
-    }
-    
-    public function dispatch()
-    {
-        new Processors\Dispatch(
-            $this->builder->dispatcher()
-        );
-    }
-    
-    public function httpException()
-    {
-        $components   = $this->builder->components();
+        if($this->processor === null) {
+            $this->processor = $this->buildProcessor();
+        }
         
-        new Processors\HTTPException(
-            $components->debug(),
-            $components->http(),
-            $components->template(),
-            $this->configData->slice('httpException')
+        return $this->processor;
+    }
+    
+    protected function buildProcessor()
+    {
+        $components = $this->builder->components();
+        $processors = $components->processors();
+        
+        return $processors->chain(array(
+            $processors->catchException(
+                $this->chain(array(
+                    $this->buildRequestProcessor(),
+                    $processors->checkIsDispatchable(
+                        $this->builder->configuration()->dispatcher(),
+                        $this->buildDispatchProcessor(),
+                        $this->buildNotFoundProcessor(),
+                    )
+                )),
+                $this->buildExceptionProcessor()
+            ),
+            $this->httpProcessors->output()
+        ));
+    }
+    
+    protected function buildRequestProcessor()
+    {
+        $httpProcessors = $this->httpProcessors();
+        
+        return $this->chain(array(
+            $httpProcessors->parseBody(),
+            $this->frameworkProcessors()->parseAttributes(),
+            $this->frameworkProcessors()->setContext(),
+            $httpProcessors->wrapRequest()
+        ));
+    }
+    
+    protected function buildDispatchProcessor()
+    {
+        return $this->frameworkProcessors()->dispatch(
+            $this->builder->configuration()->dispatcher(),
+            $this->frameworkProcessors()->dispatcher(),
         );
     }
     
-    public function httpNotFound()
+    protected function buildExceptionProcessor()
     {
-        $components   = $this->builder->components();
-        
-        new Processors\HTTPNotFound(
-            $components->http(),
-            $components->template(),
-            $this->configData->slice('httpNotFound')
-        );
+        return $this->frameworkProcessors->httpException();
+    }
+    
+    protected function buildNotFoundProcessor()
+    {
+        return $this->frameworkProcessors->notFound();
     }
 }

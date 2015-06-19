@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\Framework\HTTP\Processor;
+namespace PHPixie\Framework\Processors\HTTP\Response;
 
 class Exception
 {
