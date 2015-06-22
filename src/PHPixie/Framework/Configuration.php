@@ -15,5 +15,5 @@ interface Configuration
     
     public function httpDispatcher();
     public function routeResolver();
-    public function filesystemlocator();
+    public function filesystemLocator();
 }
