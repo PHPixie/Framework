@@ -1,22 +1,28 @@
 <?php
 
-namespace PHPixie\Tests\FrameworkProcessors\HTTP;
+namespace PHPixie\Tests\FrameworkProcessors\HTTP\Response;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Processors\HTTP\Responder
+ * @coversDefaultClass \PHPixie\Framework\Processors\HTTP\Response\Normalize
  */
 class ResponderTest extends \PHPixie\Test\Testcase
 {
+    protected $http;
+    
+    protected $normalizer;
+    
     protected $httpResponses;
-    protected $responder;
     
     public function setUp()
     {
-        $this->httpResponses = $this->quickMock('\PHPixie\HTTP\Responses');
+        $this->http = $this->quickMock('\PHPixie\HTTP');
         
-        $this->responder = new \PHPixie\Framework\Processors\HTTP\Responder(
-            $this->httpResponses
+        $this->normalizer = new \PHPixie\Framework\Processors\HTTP\Response\Normalize(
+            $this->http
         );
+        
+        $this->httpResponses = $this->quickMock('\PHPixie\HTTP\Responses');
+        $this->method($this->http, 'responses', $this->httpResponses, array());
     }
     
     /**
@@ -35,7 +41,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
     public function testProcessResponse()
     {
         $response = $this->getResponse();
-        $this->assertSame($response, $this->responder->process($response));
+        $this->assertSame($response, $this->normalizer->process($response));
     }
     
     /**
@@ -45,7 +51,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
     public function testProcessResponseMessage()
     {
         $response = $this->quickMock('\Psr\Http\Message\ResponseInterface');
-        $this->assertSame($response, $this->responder->process($response));
+        $this->assertSame($response, $this->normalizer->process($response));
     }
     
     /**
@@ -56,7 +62,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
     {
         $response = $this->getResponse();
         $this->method($this->httpResponses, 'string', $response, array('test'), 0);
-        $this->assertSame($response, $this->responder->process('test'));
+        $this->assertSame($response, $this->normalizer->process('test'));
     }
     
     /**
@@ -68,7 +74,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
         $array = array('t' => 1);
         $response = $this->getResponse();
         $this->method($this->httpResponses, 'json', $response, array($array), 0);
-        $this->assertSame($response, $this->responder->process($array));
+        $this->assertSame($response, $this->normalizer->process($array));
     }
     
     /**
@@ -80,7 +86,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
         $object = (object) array('t' => 1);
         $response = $this->getResponse();
         $this->method($this->httpResponses, 'json', $response, array($object), 0);
-        $this->assertSame($response, $this->responder->process($object));
+        $this->assertSame($response, $this->normalizer->process($object));
     }
     
     /**
@@ -94,7 +100,7 @@ class ResponderTest extends \PHPixie\Test\Testcase
         
         $this->method($container, 'render', 'test', array(), 0);
         $this->method($this->httpResponses, 'string', $response, array('test'), 0);
-        $this->assertSame($response, $this->responder->process($container));
+        $this->assertSame($response, $this->normalizer->process($container));
     }
     
     /**
@@ -103,9 +109,9 @@ class ResponderTest extends \PHPixie\Test\Testcase
      */
     public function testProcessException()
     {
-        $responder = $this->responder;
-        $this->assertException(function() use($responder) {
-            $responder->process(8);
+        $normalizer = $this->normalizer;
+        $this->assertException(function() use($normalizer) {
+            $normalizer->process(8);
         }, '\PHPixie\HTTPProcessors\Exception');
     }
     

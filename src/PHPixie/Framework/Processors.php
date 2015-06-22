@@ -11,6 +11,13 @@ class Processors
         $this->builder = $builder;
     }
     
+    public function parseRoute($routeTranslator)
+    {
+        return new Processors\HTTP\ParseRoute(
+            $routeTranslator
+        );
+    }
+    
     public function exceptionResponse($configData)
     {
         $components = $this->builder->components();

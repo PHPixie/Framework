@@ -2,7 +2,7 @@
 
 namespace PHPixie\Framework\Processors\HTTP\Response;
 
-class Exception
+class Exception implements \PHPixie\Processors\Processor
 {
     protected $debug;
     protected $http;

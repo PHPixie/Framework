@@ -1,30 +1,27 @@
 <?php
 
-namespace PHPixie\Tests\Framework\Processors\HTTP;
+namespace PHPixie\Tests\FrameworkProcessors\HTTP\Response;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Processors\HTTP\RenderException
+ * @coversDefaultClass \PHPixie\Framework\Processors\HTTP\Response\NotFound
  */
-class RenderExceptionTest extends \PHPixie\Test\Testcase
+class NotFoundTest extends \PHPixie\Test\Testcase
 {
-    protected $debug;
     protected $http;
     protected $template;
     protected $configData;
     
-    protected $renderException;
+    protected $notFound;
     
     protected $httpResponses;
     
     public function setUp()
     {
-        $this->debug      = $this->quickMock('\PHPixie\Debug', array('exceptionTrace'));
         $this->http       = $this->quickMock('\PHPixie\HTTP');
         $this->template   = $this->quickMock('\PHPixie\Template');
         $this->configData = $this->quickMock('\PHPixie\Slice\Data');
         
-        $this->renderException = new \PHPixie\Framework\Processors\HTTP\RenderException(
-            $this->debug,
+        $this->notFound = new \PHPixie\Framework\Processors\HTTP\Response\NotFound(
             $this->http,
             $this->template,
             $this->configData
@@ -44,27 +41,24 @@ class RenderExceptionTest extends \PHPixie\Test\Testcase
     
     /**
      * @covers ::process
+     * @covers ::<protected>
      */
     public function testProcess()
     {
-        $exception = $this->quickMock('\Exception');
+        $request = $this->quickMock('\PHPixie\HTTP\Request');
         
         $this->method($this->configData, 'getRequired', 'pixie', array('template'), 0);
-        
-        $trace = $this->quickMock('\PHPixie\Debug\Tracer\Trace');
-        $this->method($this->debug, 'exceptionTrace', $trace, array($exception), 0);
         
         $this->method($this->template, 'render', 'trixie', array(
             'pixie',
             array(
-                'exception' => $exception,
-                'trace'     => $trace
+                'request' => $request
             )
         ), 0);
         
         $response  = $this->quickMock('\PHPixie\HTTP\Response');
-        $this->method($this->httpResponses, 'response', $response, array('trixie', array(), 500), 0);
+        $this->method($this->httpResponses, 'response', $response, array('trixie', array(), 404), 0);
         
-        $this->assertSame($response, $this->renderException->process($exception));
+        $this->assertSame($response, $this->notFound->process($request));
     }
 }

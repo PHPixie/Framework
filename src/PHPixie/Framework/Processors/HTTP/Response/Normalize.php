@@ -26,11 +26,11 @@ class Normalize implements \PHPixie\Processors\Processor
         }
         
         if(is_string($value)) {
-            return $this->httpResponses->string($value);
+            return $this->http->responses()->string($value);
         }
         
         if(is_object($value) || is_array($value)) {
-            return $this->httpResponses->json($value);
+            return $this->http->responses()->json($value);
         }
         
         $type = gettype($value);

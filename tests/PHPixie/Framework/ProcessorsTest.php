@@ -33,6 +33,21 @@ class ProcessorsTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::parseRoute
+     * @covers ::<protected>
+     */
+    public function testParseRoute()
+    {
+        $routeTranslator = $this->quickMock('\PHPixie\Route\Translator');
+        
+        $processor = $this->processors->parseRoute($routeTranslator);
+        
+        $this->assertInstance($processor, '\PHPixie\Framework\Processors\HTTP\ParseRoute', array(
+            'routeTranslator' => $routeTranslator,
+        ));
+    }
+    
+    /**
      * @covers ::exceptionResponse
      * @covers ::<protected>
      */

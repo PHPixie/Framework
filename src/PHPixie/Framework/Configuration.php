@@ -7,6 +7,7 @@ interface Configuration
     public function databaseConfig();
     public function ormConfig();
     public function templateConfig();
+    public function frameworkConfig();
     
     public function filesystemRoot();
     public function ormWrappers();

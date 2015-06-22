@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "99b5d99f1371bb7661b2b40a148fa9ea",
@@ -217,12 +217,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/HTTP.git",
-                "reference": "a1eef970e0f6a6f5442eada5bd57749a260a5b26"
+                "reference": "b32b467d51b8a6a08e0a551612eb87af99ea08f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/HTTP/zipball/a1eef970e0f6a6f5442eada5bd57749a260a5b26",
-                "reference": "a1eef970e0f6a6f5442eada5bd57749a260a5b26",
+                "url": "https://api.github.com/repos/PHPixie/HTTP/zipball/b32b467d51b8a6a08e0a551612eb87af99ea08f8",
+                "reference": "b32b467d51b8a6a08e0a551612eb87af99ea08f8",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
                 "http",
                 "psr-7"
             ],
-            "time": "2015-06-17 12:43:59"
+            "time": "2015-06-21 13:06:29"
         },
         {
             "name": "phpixie/http-processors",
@@ -374,12 +374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Processors.git",
-                "reference": "672ee8ca44e7c71a7fdae152fab4f321f741b5c6"
+                "reference": "d8a88e718d2cb3348f92f5569939e11ec898ed97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/672ee8ca44e7c71a7fdae152fab4f321f741b5c6",
-                "reference": "672ee8ca44e7c71a7fdae152fab4f321f741b5c6",
+                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/d8a88e718d2cb3348f92f5569939e11ec898ed97",
+                "reference": "d8a88e718d2cb3348f92f5569939e11ec898ed97",
                 "shasum": ""
             },
             "require-dev": {
@@ -414,7 +414,7 @@
                 "Chain",
                 "processors"
             ],
-            "time": "2015-06-18 17:16:31"
+            "time": "2015-06-19 16:05:03"
         },
         {
             "name": "phpixie/route",

@@ -2,7 +2,7 @@
 
 namespace PHPixie\Framework\Processors\HTTP\Response;
 
-class NotFound
+class NotFound implements \PHPixie\Processors\Processor
 {
     protected $http;
     protected $template;
