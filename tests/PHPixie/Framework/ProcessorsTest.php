@@ -33,14 +33,14 @@ class ProcessorsTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::parseRoute
+     * @covers ::httpParseRoute
      * @covers ::<protected>
      */
-    public function testParseRoute()
+    public function testHttpParseRoute()
     {
         $routeTranslator = $this->quickMock('\PHPixie\Route\Translator');
         
-        $processor = $this->processors->parseRoute($routeTranslator);
+        $processor = $this->processors->httpParseRoute($routeTranslator);
         
         $this->assertInstance($processor, '\PHPixie\Framework\Processors\HTTP\ParseRoute', array(
             'routeTranslator' => $routeTranslator,
@@ -48,17 +48,17 @@ class ProcessorsTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::exceptionResponse
+     * @covers ::httpExceptionResponse
      * @covers ::<protected>
      */
-    public function testExceptionResponse()
+    public function testHttpExceptionResponse()
     {
         $debug      = $this->prepareComponent('debug');
         $http       = $this->prepareComponent('http');
         $template   = $this->prepareComponent('template');
         $configData = $this->getSliceData();
         
-        $processor = $this->processors->exceptionResponse($configData);
+        $processor = $this->processors->httpExceptionResponse($configData);
         
         $this->assertInstance($processor, '\PHPixie\Framework\Processors\HTTP\Response\Exception', array(
             'debug'      => $debug,
@@ -69,16 +69,16 @@ class ProcessorsTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::notFoundResponse
+     * @covers ::httpNotFoundResponse
      * @covers ::<protected>
      */
-    public function testNotFoundResponse()
+    public function testHttpNotFoundResponse()
     {
         $http       = $this->prepareComponent('http');
         $template   = $this->prepareComponent('template');
         $configData = $this->getSliceData();
         
-        $processor = $this->processors->notFoundResponse($configData);
+        $processor = $this->processors->httpNotFoundResponse($configData);
         
         $this->assertInstance($processor, '\PHPixie\Framework\Processors\HTTP\Response\NotFound', array(
             'http'       => $http,
@@ -88,14 +88,14 @@ class ProcessorsTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::normalizeResponse
+     * @covers ::httpNormalizeResponse
      * @covers ::<protected>
      */
-    public function testNormalizeResponse()
+    public function testHttpNormalizeResponse()
     {
         $http = $this->prepareComponent('http');
         
-        $processor = $this->processors->normalizeResponse();
+        $processor = $this->processors->httpNormalizeResponse();
         
         $this->assertInstance($processor, '\PHPixie\Framework\Processors\HTTP\Response\Normalize', array(
             'http' => $http

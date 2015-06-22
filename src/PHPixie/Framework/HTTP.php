@@ -7,6 +7,8 @@ class HTTP
     protected $builder;
     protected $configData;
     
+    protected $processor;
+    
     public function __construct($builder, $configData)
     {
         $this->builder    = $builder;
@@ -37,7 +39,7 @@ class HTTP
     
     public function processServerRequest($serverRequest)
     {
-        $this->processor()->process($serverRequest);
+        return $this->processor()->process($serverRequest);
     }
     
     protected function buildProcessor()
@@ -48,10 +50,10 @@ class HTTP
             $processors->chain(array(
                 $this->requestProcessor(),
                 $processors->checkIsDispatchable(
-                    $this->builder->configuration()->dispatcher(),
+                    $this->builder->configuration()->httpDispatcher(),
                     $this->dispatchProcessor(),
-                    $this->notFoundProcessor(),
-                );
+                    $this->notFoundProcessor()
+                )
             )),
             $this->exceptionProcessor()
         );
@@ -59,10 +61,10 @@ class HTTP
     
     protected function requestProcessor()
     {
-        $components = $this->components();
+        $components = $this->builder->components();
         
-        $processors          = $components->processors();
-        $httpProcessors      = $components->httpProcessors();
+        $processors     = $components->processors();
+        $httpProcessors = $components->httpProcessors();
         
         return $processors->chain(array(
             $httpProcessors->parseBody(),
@@ -85,7 +87,7 @@ class HTTP
             $this->builder->context()
         );
         
-        return $frameworkProcessors->parseRoute($translator);
+        return $frameworkProcessors->httpParseRoute($translator);
     }
     
     protected function dispatchProcessor()
@@ -93,11 +95,11 @@ class HTTP
         $processors          = $this->builder->components()->processors();
         $frameworkProcessors = $this->builder->processors();
         
-        $processors->chain(array(
+        return $processors->chain(array(
             $processors->dispatch(
-                $this->builder->configuration()->dispatcher()
+                $this->builder->configuration()->httpDispatcher()
             ),
-            $frameworkProcessors->normalizeResponse(),
+            $frameworkProcessors->httpNormalizeResponse(),
         ));
     }
     
@@ -106,7 +108,7 @@ class HTTP
         $configData = $this->configData->slice('exceptionResponse');
         
         $frameworkProcessors = $this->builder->processors();
-        return $frameworkProcessors->exceptionResponse($configData);
+        return $frameworkProcessors->httpExceptionResponse($configData);
     }
     
     protected function notFoundProcessor()
@@ -114,12 +116,6 @@ class HTTP
         $configData = $this->configData->slice('notFoundResponse');
         
         $frameworkProcessors = $this->builder->processors();
-        return $frameworkProcessors->notFoundResponse($configData);
-    }
-    
-    protected function outputProcessor()
-    {
-        $httpProcessors = $this->builder->components()->httpProcessors();
-        return $httpProcessors->output();
+        return $frameworkProcessors->httpNotFoundResponse($configData);
     }
 }

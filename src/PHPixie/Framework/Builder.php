@@ -21,6 +21,9 @@ abstract class Builder
         $this->instance('components');
     }
     
+    public function processors(){}
+    public function context(){}
+    
     public function configuration()
     {
         $this->instance('environment');

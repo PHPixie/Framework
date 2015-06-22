@@ -208,7 +208,7 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     protected function prepareLocator($name)
     {
         $locator = $this->getSliceData();
-        $this->method($this->configuration, $name.'Locator', $locator, array());
+        $this->method($this->configuration, $name.'FilesystemLocator', $locator, array());
         return $locator;
     }
     

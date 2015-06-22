@@ -11,14 +11,14 @@ class Processors
         $this->builder = $builder;
     }
     
-    public function parseRoute($routeTranslator)
+    public function httpParseRoute($routeTranslator)
     {
         return new Processors\HTTP\ParseRoute(
             $routeTranslator
         );
     }
     
-    public function exceptionResponse($configData)
+    public function httpExceptionResponse($configData)
     {
         $components = $this->builder->components();
         
@@ -30,7 +30,7 @@ class Processors
         );
     }
     
-    public function notFoundResponse($configData)
+    public function httpNotFoundResponse($configData)
     {
         $components = $this->builder->components();
         
@@ -41,7 +41,7 @@ class Processors
         );
     }
     
-    public function normalizeResponse()
+    public function httpNormalizeResponse()
     {
         $components = $this->builder->components();
         
