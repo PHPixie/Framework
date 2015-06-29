@@ -15,15 +15,6 @@ class ContextTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::__construct
-     * @covers ::<protected>
-     */
-    public function testConstruct()
-    {
-    
-    }
-    
-    /**
      * @covers ::httpContext
      * @covers ::setHttpContext
      * @covers ::<protected>

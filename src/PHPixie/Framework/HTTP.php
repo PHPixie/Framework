@@ -49,8 +49,8 @@ class HTTP
         return $processors->catchException(
             $processors->chain(array(
                 $this->requestProcessor(),
-                $processors->checkIsDispatchable(
-                    $this->builder->configuration()->httpDispatcher(),
+                $processors->checkIsProcessable(
+                    $this->builder->configuration()->httpProcessor(),
                     $this->dispatchProcessor(),
                     $this->notFoundProcessor()
                 )
@@ -96,9 +96,7 @@ class HTTP
         $frameworkProcessors = $this->builder->processors();
         
         return $processors->chain(array(
-            $processors->dispatch(
-                $this->builder->configuration()->httpDispatcher()
-            ),
+            $this->builder->configuration()->httpProcessor(),
             $frameworkProcessors->httpNormalizeResponse(),
         ));
     }

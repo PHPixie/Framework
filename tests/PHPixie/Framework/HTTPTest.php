@@ -7,17 +7,6 @@ namespace PHPixie\Tests\Framework;
  */
 class HTTPTest extends \PHPixie\Test\Testcase
 {
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     protected $builder;
     protected $configData;
     
@@ -84,7 +73,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
         }
         
         $this->configuration = array(
-            'httpDispatcher' => $this->quickMock('\PHPixie\Processors\Dispatcher'),
+            'httpProcessor' => $this->quickMock('\PHPixie\Processors\Dispatcher'),
             'routeResolver'  => $this->quickMock('\PHPixie\Route\Resolvers\Resolver'),
         );
         
@@ -178,8 +167,8 @@ class HTTPTest extends \PHPixie\Test\Testcase
         return $this->prepareProcessor('processors', 'catchException', array(
             $this->prepareProcessor('processors', 'chain', array(array(
                 $this->prepareRequestProcessor(),
-                $this->prepareProcessor('processors', 'checkIsDispatchable', array(
-                    $this->configuration['httpDispatcher'],
+                $this->prepareProcessor('processors', 'checkIsProcessable', array(
+                    $this->configuration['httpProcessor'],
                     $this->prepareDispatchProcessor(),
                     $this->prepareNotFoundProcessor()
                 ))
@@ -227,9 +216,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
     protected function prepareDispatchProcessor()
     {
         return $this->prepareProcessor('processors', 'chain', array(array(
-            $this->prepareProcessor('processors', 'dispatch', array(
-                $this->configuration['httpDispatcher'],
-            )),
+            $this->configuration['httpProcessor'],
             $this->prepareProcessor(
                 'frameworkProcessors',
                 'httpNormalizeResponse',

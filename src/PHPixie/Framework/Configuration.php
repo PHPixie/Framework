@@ -13,7 +13,7 @@ interface Configuration
     public function ormWrappers();
     public function templateFilesystemLocator();
     
-    public function httpDispatcher();
+    public function httpProcessor();
     public function routeResolver();
     public function filesystemLocator();
 }

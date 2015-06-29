@@ -217,12 +217,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/HTTP.git",
-                "reference": "b32b467d51b8a6a08e0a551612eb87af99ea08f8"
+                "reference": "b2696997b385eef9c2333a749e325e76d51bd970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/HTTP/zipball/b32b467d51b8a6a08e0a551612eb87af99ea08f8",
-                "reference": "b32b467d51b8a6a08e0a551612eb87af99ea08f8",
+                "url": "https://api.github.com/repos/PHPixie/HTTP/zipball/b2696997b385eef9c2333a749e325e76d51bd970",
+                "reference": "b2696997b385eef9c2333a749e325e76d51bd970",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
                 "http",
                 "psr-7"
             ],
-            "time": "2015-06-21 13:06:29"
+            "time": "2015-06-24 16:01:18"
         },
         {
             "name": "phpixie/http-processors",
@@ -374,12 +374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Processors.git",
-                "reference": "d8a88e718d2cb3348f92f5569939e11ec898ed97"
+                "reference": "07ef80fd1595bb3826930bd528bbc5285004194e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/d8a88e718d2cb3348f92f5569939e11ec898ed97",
-                "reference": "d8a88e718d2cb3348f92f5569939e11ec898ed97",
+                "url": "https://api.github.com/repos/PHPixie/Processors/zipball/07ef80fd1595bb3826930bd528bbc5285004194e",
+                "reference": "07ef80fd1595bb3826930bd528bbc5285004194e",
                 "shasum": ""
             },
             "require-dev": {
@@ -414,7 +414,7 @@
                 "Chain",
                 "processors"
             ],
-            "time": "2015-06-19 16:05:03"
+            "time": "2015-06-29 09:11:44"
         },
         {
             "name": "phpixie/route",
@@ -525,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Template.git",
-                "reference": "0ffc4064e341c0f7adbc6e65245d1f9c1180b96f"
+                "reference": "e14a0098d48266eda23e29132cab79cfcf86e199"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Template/zipball/0ffc4064e341c0f7adbc6e65245d1f9c1180b96f",
-                "reference": "0ffc4064e341c0f7adbc6e65245d1f9c1180b96f",
+                "url": "https://api.github.com/repos/PHPixie/Template/zipball/e14a0098d48266eda23e29132cab79cfcf86e199",
+                "reference": "e14a0098d48266eda23e29132cab79cfcf86e199",
                 "shasum": ""
             },
             "require": {
@@ -569,7 +569,7 @@
                 "template",
                 "templating"
             ],
-            "time": "2015-06-03 09:39:39"
+            "time": "2015-06-25 12:56:55"
         },
         {
             "name": "psr/http-message",
