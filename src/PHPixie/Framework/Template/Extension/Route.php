@@ -26,15 +26,15 @@ class Route implements \PHPixie\Template\Extensions\Extension
         return array();
     }
     
-    public function routePath($resolverPath, $attributes = array())
+    public function path($resolverPath, $attributes = array())
     {
         return $this->routeTranslator->generatePath(
             $resolverPath,
-            $attributes = array()
+            $attributes
         );
     }
     
-    public function routeUri(
+    public function uri(
         $resolverPath,
         $attributes    = array(),
         $withHost      = true
@@ -42,7 +42,7 @@ class Route implements \PHPixie\Template\Extensions\Extension
     {
         return $this->routeTranslator->generateUri(
             $resolverPath,
-            $attributes    = array(),
+            $attributes,
             $withHost
         );
     }
