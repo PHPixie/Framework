@@ -14,7 +14,6 @@ class AssetsTest extends \PHPixie\Test\Testcase
     public function setUp()
     {
         $this->components = $this->quickMock('\PHPixie\Framework\Components');
-        $this->assets = $this->assets();
     }
     
     /**
@@ -23,19 +22,38 @@ class AssetsTest extends \PHPixie\Test\Testcase
      */
     public function testConstruct()
     {
-        
+        $this->assetsMock();
     }
     
     /**
-     * @covers ::templateLocator
+     * @covers ::frameworkAssetsRoot
      * @covers ::<protected>
      */
-    public function testTemplateLocator()
+    public function testFrameworkAssetsRoot()
     {
+        $this->assets = $this->assetsMock();
         $filesystem = $this->prepareComponent('filesystem');
-        $slice = $this->prepareComponent('slice');
         
-        $root  = $this->prepareAssetsRoot($filesystem);
+        $assetsDir = realpath(__DIR__.'/../../../assets');
+        $root = $this->quickMock('\PHPixie\Filesystem\Root');
+        $this->method($filesystem, 'root', $root, array($assetsDir), 0);
+        
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($root, $this->assets->frameworkAssetsRoot());
+        }
+    }
+    
+    /**
+     * @covers ::frameworkTemplateLocator
+     * @covers ::<protected>
+     */
+    public function testFrameworkTemplateLocator()
+    {
+        $this->assets = $this->assetsMock(array('assetsRoot'));
+        $assetsRoot   = $this->prepareRoot('assetsRoot');
+        
+        $slice      = $this->prepareComponent('slice');
+        $filesystem = $this->prepareComponent('filesystem');
         
         $configData = $this->quickMock('\PHPixie\Slice\Data');
         $this->method($slice, 'arrayData', $configData, array(array(
@@ -44,19 +62,17 @@ class AssetsTest extends \PHPixie\Test\Testcase
         )), 0);
         
         $locator = $this->quickMock('\PHPixie\Filesystem\Locators\Locator');
-        $this->method($filesystem, 'buildLocator', $locator, array($configData, $root), 1);
+        $this->method($filesystem, 'buildLocator', $locator, array($configData, $assetsRoot), 0);
         
         for($i=0; $i<2; $i++) {
-            $this->assertSame($locator, $this->assets->templateLocator());
+            $this->assertSame($locator, $this->assets->frameworkTemplateLocator());
         }
     }
  
-    public function prepareAssetsRoot($filesystem)
+    protected function prepareRoot($name)
     {
-        $assetsDir = realpath(__DIR__.'/../../../assets');
         $root = $this->quickMock('\PHPixie\Filesystem\Root');
-        $this->method($filesystem, 'root', $root, array($assetsDir), 0);
-        
+        $this->method($this->assets, $name, $root, array());
         return $root;
     }
     
@@ -67,8 +83,12 @@ class AssetsTest extends \PHPixie\Test\Testcase
         return $mock;
     }
     
-    protected function assets()
+    protected function assetsMock($methods = null)
     {
-        return new \PHPixie\Framework\Assets($this->components);
+        return $this->getMock(
+            '\PHPixie\Framework\Assets',
+            $methods,
+            array($this->components)
+        );
     }
 }

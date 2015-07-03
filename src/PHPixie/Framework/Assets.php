@@ -12,9 +12,9 @@ class Assets
         $this->components = $components;
     }
     
-    public function templateLocator()
+    public function frameworkTemplateLocator()
     {
-        return $this->instance('templateLocator');
+        return $this->instance('frameworkTemplateLocator');
     }
     
     protected function instance($name)
@@ -27,21 +27,24 @@ class Assets
         return $this->instances[$name];
     }
     
-    protected function assetsRoot()
+    public function frameworkAssetsRoot()
     {
-        return $this->instance('assetsRoot');
+        return $this->instance('frameworkAssetsRoot');
     }
     
-    protected function buildAssetsRoot()
+    protected function buildFrameworkAssetsRoot()
+    {
+        $directory = realpath(__DIR__.'/../../../assets');
+        return $this->buildFilesystemRoot($directory);
+    }
+    
+    protected function buildFilesystemRoot($directory)
     {
         $filesystem = $this->components->filesystem();
-        
-        return $filesystem->root(
-            realpath(__DIR__.'/../../../assets')
-        );
+        return $filesystem->root($directory);
     }
     
-    protected function buildTemplateLocator()
+    protected function buildFrameworkTemplateLocator()
     {
         $slice      = $this->components->slice();
         $filesystem = $this->components->filesystem();
