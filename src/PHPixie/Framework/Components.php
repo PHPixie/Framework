@@ -5,7 +5,7 @@ namespace PHPixie\Framework;
 class Components
 {
     protected $builder;
-    protected $ggggg = array();
+    protected $instances = array();
     
     public function __construct($builder)
     {
@@ -69,12 +69,12 @@ class Components
 
     protected function instance($name)
     {
-        if(!array_key_exists($name, $this->ggggg)) {
+        if(!array_key_exists($name, $this->instances)) {
             $method = 'build'.ucfirst($name);
-            $this->ggggg[$name] = $this->$method();
+            $this->instances[$name] = $this->$method();
         }
         
-        return $this->ggggg[$name];
+        return $this->instances[$name];
     }
     
     protected function buildSlice()
@@ -120,12 +120,15 @@ class Components
     protected function buildTemplate()
     {
         $configuration = $this->builder->configuration();
+        $extensions = $this->extensions();
         
         return new \PHPixie\Template(
             $this->slice(),
             $configuration->templateFilesystemLocator(),
             $configuration->templateConfig(),
-            $configuration->filesystemRoot()
+            $configuration->filesystemRoot(),
+            $extensions->templateExtensions(),
+            $extensions->templateFormats()
         );
     }
     
@@ -151,6 +154,16 @@ class Components
     protected function buildRoute()
     {
         return new \PHPixie\Route();
+    }
+    
+    protected function extensions()
+    {
+        return $this->instance('extensions');
+    }
+    
+    protected function buildExtensions()
+    {
+        return new Components\Extensions($this->builder);
     }
     
     protected function configuration()

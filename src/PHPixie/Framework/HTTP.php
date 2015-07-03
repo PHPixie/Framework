@@ -7,7 +7,7 @@ class HTTP
     protected $builder;
     protected $configData;
     
-    protected $processor;
+    protected $instances = array();
     
     public function __construct($builder, $configData)
     {
@@ -17,11 +17,33 @@ class HTTP
     
     public function processor()
     {
-        if($this->processor === null) {
-            $this->processor = $this->buildProcessor();
+        return $this->instance('processor');
+    }
+    
+    public function routeTranslator()
+    {
+        return $this->instance('routeTranslator');
+    }
+    
+    protected function instance($name)
+    {
+        if(!array_key_exists($name, $this->instances)) {
+            $method = 'build'.ucfirst($name);
+            $this->instances[$name] = $this->$method();
         }
         
-        return $this->processor;
+        return $this->instances[$name];
+    }
+    
+    protected function buildRouteTranslator()
+    {
+        $route = $this->builder->components()->route();
+        
+        return $route->translator(
+            $this->configData->slice('route'),
+            $this->builder->configuration()->routeResolver(),
+            $this->builder->context()
+        );
     }
     
     public function processSapiRequest()
@@ -78,15 +100,9 @@ class HTTP
     
     protected function parseRouteProcessor()
     {
-        $route               = $this->builder->components()->route();
         $frameworkProcessors = $this->builder->processors();
         
-        $translator = $route->translator(
-            $this->configData->slice('route'),
-            $this->builder->configuration()->routeResolver(),
-            $this->builder->context()
-        );
-        
+        $translator = $this->routeTranslator();
         return $frameworkProcessors->httpParseRoute($translator);
     }
     

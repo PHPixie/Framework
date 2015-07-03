@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPixie\Tests\Framework\Template\Extension;
+namespace PHPixie\Tests\Framework\Components\Extensions\Template\Extension;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Template\Extension\Route
+ * @coversDefaultClass \PHPixie\Framework\Components\Extensions\Template\Extension\Route
  */
 class RouteTest extends \PHPixie\Test\Testcase
 {
@@ -14,7 +14,7 @@ class RouteTest extends \PHPixie\Test\Testcase
     public function setUp()
     {
         $this->routeTranslator = $this->quickMock('\PHPixie\Route\Translator');
-        $this->extension = new \PHPixie\Framework\Template\Extension\Route(
+        $this->extension = new \PHPixie\Framework\Components\Extensions\Template\Extension\Route(
             $this->routeTranslator
         );
     }
@@ -43,7 +43,10 @@ class RouteTest extends \PHPixie\Test\Testcase
      */
     public function testMethods()
     {
-        $this->assertSame(array('path', 'uri'), $this->extension->methods());
+        $this->assertSame(array(
+            'routePath' => 'path',
+            'routeUri'  => 'uri'
+        ), $this->extension->methods());
     }
     
     /**

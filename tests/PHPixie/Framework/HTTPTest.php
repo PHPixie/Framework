@@ -108,6 +108,18 @@ class HTTPTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::routeTranslator
+     * @covers ::<protected>
+     */
+    public function testRouteTranslator()
+    {
+        $translator = $this->prepareRouteTranslator();
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($translator, $this->http->routeTranslator());
+        }
+    }
+    
+    /**
      * @covers ::processServerRequest
      * @covers ::<protected>
      */
@@ -191,8 +203,21 @@ class HTTPTest extends \PHPixie\Test\Testcase
     
     protected function prepareParseRouteProcessor()
     {
-        $config = $this->prepareConfig('route');
+        $translator = $this->prepareRouteTranslator();
+        
+        return $this->prepareProcessor(
+            'frameworkProcessors',
+            'httpParseRoute',
+            array($translator),
+            'HTTP\ParseRoute'
+        );
+    }
+    
+    protected function prepareRouteTranslator()
+    {
         $translator = $this->quickMock('\PHPixie\Route\Translator');
+        
+        $config = $this->prepareConfig('route');
         $this->method(
             $this->components['route'],
             'translator',
@@ -205,12 +230,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
             0
         );
         
-        return $this->prepareProcessor(
-            'frameworkProcessors',
-            'httpParseRoute',
-            array($translator),
-            'HTTP\ParseRoute'
-        );
+        return $translator;
     }
     
     protected function prepareDispatchProcessor()

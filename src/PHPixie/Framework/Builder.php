@@ -23,6 +23,7 @@ abstract class Builder
     
     public function processors(){}
     public function context(){}
+    public function http(){}
     
     public function configuration()
     {

@@ -161,18 +161,31 @@ class ComponentsTest extends \PHPixie\Test\Testcase
      */
     public function testTemplate()
     {
-        $this->components = $this->components(array('slice'));
+        $this->components = $this->components(array('slice', 'extensions'));
         $slice = $this->prepareComponent('slice');
+        $extensions = $this->prepareExtensions();
         
         $configData = $this->prepareConfig('template');
         $locator    = $this->prepareLocator('template');
         $root       = $this->prepareRoot();
         
+        $templateExtensions = array(
+            $this->quickMock('\PHPixie\Template\Extensions\Extension')
+        );
+        $this->method($extensions, 'templateExtensions', $templateExtensions, array(), 0);
+        
+        $templateFormats = array(
+            $this->quickMock('\PHPixie\Template\Formats\Format')
+        );
+        $this->method($extensions, 'templateFormats', $templateFormats, array(), 1);
+        
         $this->assertComponent('template', '\PHPixie\Template', array(
-            'slice'             => $slice,
-            'configData'        => $configData,
-            'filesystemLocator' => $locator,
-            'filesystemRoot'    => $root,
+            'slice'              => $slice,
+            'configData'         => $configData,
+            'filesystemLocator'  => $locator,
+            'filesystemRoot'     => $root,
+            'externalExtensions' => $templateExtensions,
+            'externalFormats'    => $templateFormats
         ));
     }
     
@@ -198,6 +211,13 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         return $mock;
     }
     
+    protected function prepareExtensions()
+    {
+        $extensions = $this->getExtensions();
+        $this->method($this->components, 'extensions', $extensions, array());
+        return $extensions;
+    }
+    
     protected function prepareConfig($name)
     {
         $configData = $this->getSliceData();
@@ -219,6 +239,16 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         return $root;
     }
     
+    protected function getSliceData()
+    {
+        return $this->quickMock('\PHPixie\Slice\Data');
+    }
+    
+    protected function getExtensions()
+    {
+        return $this->quickMock('\PHPixie\Framework\Components\Extensions');
+    }
+    
     protected function components($methods)
     {
         return $this->getMock(
@@ -226,10 +256,5 @@ class ComponentsTest extends \PHPixie\Test\Testcase
             $methods,
             array($this->builder)
         );
-    }
-    
-    protected function getSliceData()
-    {
-        return $this->quickMock('\PHPixie\Slice\Data');
     }
 }

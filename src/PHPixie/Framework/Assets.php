@@ -4,20 +4,12 @@ namespace PHPixie\Framework;
 
 class Assets
 {
-    protected $slice;
-    protected $filesystem;
-    
+    protected $components;
     protected $instances = array();
     
-    public function __construct($slice, $filesystem)
+    public function __construct($components)
     {
-        $this->slice      = $slice;
-        $this->filesystem = $filesystem;
-    }
-    
-    public function assetsRoot()
-    {
-        return $this->instance('assetsRoot');
+        $this->components = $components;
     }
     
     public function templateLocator()
@@ -35,21 +27,31 @@ class Assets
         return $this->instances[$name];
     }
     
-    protected buildAssetsRoot()
+    protected function assetsRoot()
     {
-        return $this->filesystem->root(
-            realpath(__DIR__.'/../../../assets');
+        return $this->instance('assetsRoot');
+    }
+    
+    protected function buildAssetsRoot()
+    {
+        $filesystem = $this->components->filesystem();
+        
+        return $filesystem->root(
+            realpath(__DIR__.'/../../../assets')
         );
     }
     
     protected function buildTemplateLocator()
     {
-        $configData = $this->slice->arrayData(array(
+        $slice      = $this->components->slice();
+        $filesystem = $this->components->filesystem();
+        
+        $configData = $slice->arrayData(array(
             'type'      => 'directory',
             'directory' => 'template'
         ));
         
-        return $this->filesystem->buildLocator(
+        return $filesystem->buildLocator(
             $configData,
             $this->assetsRoot()
         );
