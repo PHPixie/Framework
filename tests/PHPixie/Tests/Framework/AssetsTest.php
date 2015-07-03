@@ -32,11 +32,8 @@ class AssetsTest extends \PHPixie\Test\Testcase
     public function testFrameworkAssetsRoot()
     {
         $this->assets = $this->assetsMock();
-        $filesystem = $this->prepareComponent('filesystem');
-        
-        $assetsDir = realpath(__DIR__.'/../../../assets');
-        $root = $this->quickMock('\PHPixie\Filesystem\Root');
-        $this->method($filesystem, 'root', $root, array($assetsDir), 0);
+        $assetsDir = realpath(__DIR__.'/../../../../assets');
+        $root = $this->preparebuildFilesystemRoot($assetsDir);
         
         for($i=0; $i<2; $i++) {
             $this->assertSame($root, $this->assets->frameworkAssetsRoot());
@@ -73,6 +70,15 @@ class AssetsTest extends \PHPixie\Test\Testcase
     {
         $root = $this->quickMock('\PHPixie\Filesystem\Root');
         $this->method($this->assets, $name, $root, array());
+        return $root;
+    }
+    
+    protected function preparebuildFilesystemRoot($directory)
+    {
+        $filesystem = $this->prepareComponent('filesystem');
+        $root = $this->quickMock('\PHPixie\Filesystem\Root');
+        $this->method($filesystem, 'root', $root, array($directory), 0);
+        
         return $root;
     }
     
