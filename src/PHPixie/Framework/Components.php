@@ -124,7 +124,7 @@ class Components
         
         return new \PHPixie\Template(
             $this->slice(),
-            $configuration->templateFilesystemLocator(),
+            $configuration->templateLocator(),
             $configuration->templateConfig(),
             $configuration->filesystemRoot(),
             $extensions->templateExtensions(),
