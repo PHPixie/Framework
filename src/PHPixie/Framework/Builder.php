@@ -49,6 +49,5 @@ abstract class Builder
     {
         return new Environment($this, $this->rootDir);
     }
-    
-    abstract public function buildBundles();
+
 }
