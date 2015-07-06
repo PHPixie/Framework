@@ -4,30 +4,36 @@ namespace PHPixie\Framework;
 
 abstract class Builder
 {
-    protected $rootDir;
+    protected $instances = array();
     
-    public function __construct($rootDir)
+    public function assets()
     {
-        $this->rootDir = $rootDir;
-    }
-    
-    public function bundles()
-    {
-        $this->instance('bundles');
+        return $this->instance('assets');
     }
     
     public function components()
     {
-        $this->instance('components');
+        return $this->instance('components');
     }
     
-    public function processors(){}
-    public function context(){}
-    public function http(){}
-    
-    public function configuration()
+    public function context()
     {
-        $this->instance('environment');
+        return $this->instance('context');
+    }
+    
+    public function extensions()
+    {
+        return $this->instance('extensions');
+    }
+    
+    public function http()
+    {
+        return $this->instance('http');
+    }
+    
+    public function processors()
+    {
+        return $this->instance('processors');
     }
     
     protected function instance($name)
@@ -40,14 +46,37 @@ abstract class Builder
         return $this->instances[$name];
     }
     
+    protected function buildAssets()
+    {
+        return new Assets(
+            $this->components()
+        );
+    }
+    
     protected function buildComponents()
     {
         return new Components($this);
     }
     
-    protected function buildEnvironment()
+    protected function buildContext()
     {
-        return new Environment($this, $this->rootDir);
+        return new Context($this);
     }
-
+    
+    protected function buildExtensions()
+    {
+        return new Extensions($this);
+    }
+    
+    protected function buildHttp()
+    {
+        return new HTTP($this);
+    }
+    
+    protected function buildProcessors()
+    {
+        return new Processors($this);
+    }
+    
+    abstract public function configuration();
 }

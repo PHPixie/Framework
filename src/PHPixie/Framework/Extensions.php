@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\Framework\Components;
+namespace PHPixie\Framework;
 
 class Extensions
 {

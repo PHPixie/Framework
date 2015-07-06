@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\Framework\Components\Template\Extension;
+namespace PHPixie\Framework\Extensions\Template\Extension;
 
 class Route implements \PHPixie\Template\Extensions\Extension
 {
@@ -18,7 +18,10 @@ class Route implements \PHPixie\Template\Extensions\Extension
     
     public function methods()
     {
-        return array('path', 'uri');
+        return array(
+            'routePath' => 'path',
+            'routeUri'  => 'uri'
+        );
     }
     
     public function aliases()

@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPixie\Tests\Framework\Components;
+namespace PHPixie\Tests\Framework;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Components\Extensions
+ * @coversDefaultClass \PHPixie\Framework\Extensions
  */
 class ExtenionsTest extends \PHPixie\Test\Testcase
 {
@@ -53,13 +53,13 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
     
     protected function assertTemplateRouteExtension($extension)
     {
-        $this->assertInstance($extension, 'PHPixie\Framework\Components\Extensions\Template\Extension\Route', array(
+        $this->assertInstance($extension, 'PHPixie\Framework\Extensions\Template\Extension\Route', array(
             'routeTranslator' => $this->routeTranslator
         ));
     }
     
     protected function extensions()
     {
-        return new \PHPixie\Framework\Components\Extensions($this->builder);
+        return new \PHPixie\Framework\Extensions($this->builder);
     }
 }

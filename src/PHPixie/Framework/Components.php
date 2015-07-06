@@ -120,7 +120,7 @@ class Components
     protected function buildTemplate()
     {
         $configuration = $this->builder->configuration();
-        $extensions = $this->extensions();
+        $extensions    = $this->builder->extensions();
         
         return new \PHPixie\Template(
             $this->slice(),
@@ -154,16 +154,6 @@ class Components
     protected function buildRoute()
     {
         return new \PHPixie\Route();
-    }
-    
-    protected function extensions()
-    {
-        return $this->instance('extensions');
-    }
-    
-    protected function buildExtensions()
-    {
-        return new Components\Extensions($this->builder);
     }
     
     protected function configuration()

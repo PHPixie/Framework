@@ -8,10 +8,11 @@ namespace PHPixie\Tests\Framework;
 class ComponentsTest extends \PHPixie\Test\Testcase
 {
     protected $builder;
-    
+        
     protected $components;
     
     protected $configuration;
+    protected $extensions;
     
     public function setUp()
     {
@@ -20,6 +21,9 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         
         $this->configuration = $this->quickMock('\PHPixie\Framework\Configuration');
         $this->method($this->builder, 'configuration', $this->configuration, array());
+        
+        $this->extensions = $this->quickMock('\PHPixie\Framework\Extensions');
+        $this->method($this->builder, 'extensions', $this->extensions, array());
     }
     
     /**
@@ -161,9 +165,8 @@ class ComponentsTest extends \PHPixie\Test\Testcase
      */
     public function testTemplate()
     {
-        $this->components = $this->components(array('slice', 'extensions'));
+        $this->components = $this->components(array('slice'));
         $slice = $this->prepareComponent('slice');
-        $extensions = $this->prepareExtensions();
         
         $configData = $this->prepareConfig('template');
         $locator    = $this->prepareLocator('template');
@@ -172,12 +175,12 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         $templateExtensions = array(
             $this->quickMock('\PHPixie\Template\Extensions\Extension')
         );
-        $this->method($extensions, 'templateExtensions', $templateExtensions, array(), 0);
+        $this->method($this->extensions, 'templateExtensions', $templateExtensions, array(), 0);
         
         $templateFormats = array(
             $this->quickMock('\PHPixie\Template\Formats\Format')
         );
-        $this->method($extensions, 'templateFormats', $templateFormats, array(), 1);
+        $this->method($this->extensions, 'templateFormats', $templateFormats, array(), 1);
         
         $this->assertComponent('template', '\PHPixie\Template', array(
             'slice'              => $slice,
@@ -211,13 +214,6 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         return $mock;
     }
     
-    protected function prepareExtensions()
-    {
-        $extensions = $this->getExtensions();
-        $this->method($this->components, 'extensions', $extensions, array());
-        return $extensions;
-    }
-    
     protected function prepareConfig($name)
     {
         $configData = $this->getSliceData();
@@ -246,7 +242,7 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     
     protected function getExtensions()
     {
-        return $this->quickMock('\PHPixie\Framework\Components\Extensions');
+        return $this->quickMock('\PHPixie\Framework\Extensions');
     }
     
     protected function components($methods)
