@@ -53,7 +53,8 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
     
     protected function assertTemplateRouteExtension($extension)
     {
-        $this->assertInstance($extension, 'PHPixie\Framework\Extensions\Template\Extension\Route', array(
+        $this->assertInstance($extension, 'PHPixie\Framework\Extensions\Template\Extension\RouteTranslator', array(
+            'name'            => 'http',
             'routeTranslator' => $this->routeTranslator
         ));
     }

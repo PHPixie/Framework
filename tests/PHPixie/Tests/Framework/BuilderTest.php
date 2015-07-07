@@ -40,6 +40,47 @@ class BuilderTest extends \PHPixie\Test\Testcase
         ));
     }
     
+    /**
+     * @covers ::context
+     * @covers ::<protected>
+     */
+    public function testContext()
+    {
+        $this->instanceTest('context', '\PHPixie\Framework\Context');
+    }
+    
+    /**
+     * @covers ::extensions
+     * @covers ::<protected>
+     */
+    public function testExtensions()
+    {
+        $this->instanceTest('extensions', '\PHPixie\Framework\Extensions', array(
+            'builder' => $this->builder
+        ));
+    }
+    
+    /**
+     * @covers ::http
+     * @covers ::<protected>
+     */
+    public function testHttp()
+    {
+        $this->instanceTest('http', '\PHPixie\Framework\HTTP', array(
+            'builder' => $this->builder
+        ));
+    }
+    
+    /**
+     * @covers ::processors
+     * @covers ::<protected>
+     */
+    public function testProcessors()
+    {
+        $this->instanceTest('processors', '\PHPixie\Framework\Processors', array(
+            'builder' => $this->builder
+        ));
+    }
     
     protected function instanceTest($method, $class, $propertyMap = array())
     {

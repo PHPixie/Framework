@@ -14,7 +14,8 @@ class Extensions
     public function templateExtensions()
     {
         return array(
-            new Extensions\Template\Extension\Route(
+            new Extensions\Template\Extension\RouteTranslator(
+                'http',
                 $this->builder->http()->routeTranslator()
             )
         );

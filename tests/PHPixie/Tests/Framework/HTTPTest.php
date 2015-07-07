@@ -8,7 +8,6 @@ namespace PHPixie\Tests\Framework;
 class HTTPTest extends \PHPixie\Test\Testcase
 {
     protected $builder;
-    protected $configData;
     
     protected $http;
     
@@ -74,7 +73,8 @@ class HTTPTest extends \PHPixie\Test\Testcase
         
         $this->configuration = array(
             'httpProcessor' => $this->quickMock('\PHPixie\Processors\Dispatcher'),
-            'routeResolver'  => $this->quickMock('\PHPixie\Route\Resolvers\Resolver'),
+            'routeResolver' => $this->quickMock('\PHPixie\Route\Resolvers\Resolver'),
+            'httpConfig'    => $this->quickMock('\PHPixie\Slice\Data'),
         );
         
         foreach($this->configuration as $key => $value) {
@@ -126,9 +126,18 @@ class HTTPTest extends \PHPixie\Test\Testcase
     public function testProcessServerRequest()
     {
         $serverRequest = $this->getServerRequest();
-        $response = $this->prepareProcessServerRequest($serverRequest);
+        $response = $this->prepareProcess($serverRequest);
         
-        $this->assertSame($response, $this->http->processServerRequest($serverRequest));
+        $responseMessage = $this->quickMock('\Psr\Http\Message\ResponseInterface');
+        $this->method(
+            $response,
+            'asResponseMessage',
+            $responseMessage,
+            array($this->httpContext),
+            0
+        );
+        
+        $this->assertSame($responseMessage, $this->http->processServerRequest($serverRequest));
     }
     
     /**
@@ -150,7 +159,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
         );
         $this->at[$http] = $this->at[$http]+1;
         
-        $response = $this->prepareProcessServerRequest($serverRequest);
+        $response = $this->prepareProcess($serverRequest);
         
         $this->method(
             $http,
@@ -164,7 +173,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
         $this->http->processSapiRequest();
     }
     
-    protected function prepareProcessServerRequest($serverRequest)
+    protected function prepareProcess($serverRequest)
     {
         $response  = $this->quickMock('\PHPixie\HTTP\Responses\Response');
         
@@ -217,7 +226,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
     {
         $translator = $this->quickMock('\PHPixie\Route\Translator');
         
-        $config = $this->prepareConfig('route');
+        $config = $this->prepareConfig('translator');
         $this->method(
             $this->components['route'],
             'translator',
@@ -297,16 +306,18 @@ class HTTPTest extends \PHPixie\Test\Testcase
     
     protected function prepareConfig($key)
     {
+        $httpConfig = $this->configuration['httpConfig'];
         $slice = $this->quickMock('\PHPixie\Slice\Data');
+        
         $this->method(
-            $this->configData,
+            $httpConfig,
             'slice',
             $slice,
             array($key),
-            $this->at[$this->configData]
+            $this->at[$httpConfig]
         );
         
-        $this->at[$this->configData] = $this->at[$this->configData]+1;
+        $this->at[$httpConfig] = $this->at[$httpConfig]+1;
         
         return $slice;
     }
@@ -315,50 +326,4 @@ class HTTPTest extends \PHPixie\Test\Testcase
     {
         return $this->quickMock('\Psr\Http\Message\ServerRequestInterface');
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

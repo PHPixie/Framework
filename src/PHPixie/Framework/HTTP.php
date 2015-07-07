@@ -9,10 +9,9 @@ class HTTP
     
     protected $instances = array();
     
-    public function __construct($builder, $configData)
+    public function __construct($builder)
     {
-        $this->builder    = $builder;
-        $this->configData = $configData;
+        $this->builder = $builder;
     }
     
     public function processor()
@@ -38,9 +37,10 @@ class HTTP
     protected function buildRouteTranslator()
     {
         $route = $this->builder->components()->route();
+        $httpConfig = $this->builder->configuration()->httpConfig();
         
         return $route->translator(
-            $this->configData->slice('route'),
+            $httpConfig->slice('translator'),
             $this->builder->configuration()->routeResolver(),
             $this->builder->context()
         );
@@ -51,7 +51,7 @@ class HTTP
         $http = $this->builder->components()->http();
         $serverRequest = $http->sapiServerRequest();
         
-        $response = $this->processServerRequest($serverRequest);
+        $response = $this->processor()->process($serverRequest);
         
         $http->output(
             $response,
@@ -61,7 +61,11 @@ class HTTP
     
     public function processServerRequest($serverRequest)
     {
-        return $this->processor()->process($serverRequest);
+        $response = $this->processor()->process($serverRequest);
+        
+        return $response->asResponseMessage(
+            $this->builder->context()->httpContext()
+        );
     }
     
     protected function buildProcessor()
@@ -119,17 +123,21 @@ class HTTP
     
     protected function exceptionProcessor()
     {
-        $configData = $this->configData->slice('exceptionResponse');
-        
         $frameworkProcessors = $this->builder->processors();
-        return $frameworkProcessors->httpExceptionResponse($configData);
+        $httpConfig = $this->builder->configuration()->httpConfig();
+        
+        return $frameworkProcessors->httpExceptionResponse(
+            $httpConfig->slice('exceptionResponse')
+        );
     }
     
     protected function notFoundProcessor()
     {
-        $configData = $this->configData->slice('notFoundResponse');
-        
         $frameworkProcessors = $this->builder->processors();
-        return $frameworkProcessors->httpNotFoundResponse($configData);
+        $httpConfig = $this->builder->configuration()->httpConfig();
+        
+        return $frameworkProcessors->httpNotFoundResponse(
+            $httpConfig->slice('notFoundResponse')
+        );
     }
 }

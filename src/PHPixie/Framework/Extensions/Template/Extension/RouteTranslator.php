@@ -2,25 +2,28 @@
 
 namespace PHPixie\Framework\Extensions\Template\Extension;
 
-class Route implements \PHPixie\Template\Extensions\Extension
+class RouteTranslator implements \PHPixie\Template\Extensions\Extension
 {
+    
+    protected $name;
     protected $routeTranslator;
     
-    public function __construct($routeTranslator)
+    public function __construct($name, $routeTranslator)
     {
+        $this->name            = $name;
         $this->routeTranslator = $routeTranslator;
     }
     
     public function name()
     {
-        return 'route';
+        return $this->name;
     }
     
     public function methods()
     {
         return array(
-            'routePath' => 'path',
-            'routeUri'  => 'uri'
+            $this->name.'Path' => 'path',
+            $this->name.'Uri'  => 'uri'
         );
     }
     

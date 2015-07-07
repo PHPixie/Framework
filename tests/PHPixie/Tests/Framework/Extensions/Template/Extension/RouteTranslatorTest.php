@@ -3,10 +3,11 @@
 namespace PHPixie\Tests\Framework\Extensions\Template\Extension;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Extensions\Template\Extension\Route
+ * @coversDefaultClass \PHPixie\Framework\Extensions\Template\Extension\RouteTranslator
  */
-class RouteTest extends \PHPixie\Test\Testcase
+class RouteTranslatorTest extends \PHPixie\Test\Testcase
 {
+    protected $name = 'http';
     protected $routeTranslator;
     
     protected $extension;
@@ -14,7 +15,8 @@ class RouteTest extends \PHPixie\Test\Testcase
     public function setUp()
     {
         $this->routeTranslator = $this->quickMock('\PHPixie\Route\Translator');
-        $this->extension = new \PHPixie\Framework\Extensions\Template\Extension\Route(
+        $this->extension = new \PHPixie\Framework\Extensions\Template\Extension\RouteTranslator(
+            $this->name,
             $this->routeTranslator
         );
     }
@@ -34,7 +36,7 @@ class RouteTest extends \PHPixie\Test\Testcase
      */
     public function testName()
     {
-        $this->assertSame('route', $this->extension->name());
+        $this->assertSame($this->name, $this->extension->name());
     }
     
     /**
@@ -44,8 +46,8 @@ class RouteTest extends \PHPixie\Test\Testcase
     public function testMethods()
     {
         $this->assertSame(array(
-            'routePath' => 'path',
-            'routeUri'  => 'uri'
+            $this->name.'Path' => 'path',
+            $this->name.'Uri'  => 'uri'
         ), $this->extension->methods());
     }
     
