@@ -5,7 +5,6 @@ namespace PHPixie\Framework;
 interface Configuration
 {
     public function databaseConfig();
-    public function routeTranslatorConfig();
     public function templateConfig(); 
     
     public function httpConfig();

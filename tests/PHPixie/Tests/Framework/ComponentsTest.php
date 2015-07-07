@@ -16,13 +16,13 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     
     public function setUp()
     {
-        $this->builder = $this->quickMock('\PHPixie\Framework\Builder');
+        $this->builder = $this->builder();
         $this->components = $this->components(null);
         
         $this->configuration = $this->quickMock('\PHPixie\Framework\Configuration');
         $this->method($this->builder, 'configuration', $this->configuration, array());
         
-        $this->extensions = $this->quickMock('\PHPixie\Framework\Extensions');
+        $this->extensions = $this->extensions();
         $this->method($this->builder, 'extensions', $this->extensions, array());
     }
     
@@ -240,9 +240,14 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         return $this->quickMock('\PHPixie\Slice\Data');
     }
     
-    protected function getExtensions()
+    protected function extensions()
     {
         return $this->quickMock('\PHPixie\Framework\Extensions');
+    }
+    
+    protected function builder()
+    {
+        return $this->quickMock('\PHPixie\Framework\Builder');
     }
     
     protected function components($methods)
