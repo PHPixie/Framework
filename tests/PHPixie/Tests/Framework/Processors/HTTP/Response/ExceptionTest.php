@@ -18,7 +18,7 @@ class ExceptionTest extends \PHPixie\Test\Testcase
     
     public function setUp()
     {
-        $this->debug      = $this->quickMock('\PHPixie\Debug', array('exceptionTrace'));
+        $this->debug      = $this->quickMock('\PHPixie\Debug');
         $this->http       = $this->quickMock('\PHPixie\HTTP');
         $this->template   = $this->quickMock('\PHPixie\Template');
         $this->configData = $this->quickMock('\PHPixie\Slice\Data');
@@ -54,11 +54,15 @@ class ExceptionTest extends \PHPixie\Test\Testcase
         $trace = $this->quickMock('\PHPixie\Debug\Tracer\Trace');
         $this->method($this->debug, 'exceptionTrace', $trace, array($exception), 0);
         
+        $logger = $this->quickMock('\PHPixie\Debug\Logger');
+        $this->method($this->debug, 'logger', $logger, array(), 1);
+        
         $this->method($this->template, 'render', 'trixie', array(
             'pixie',
             array(
                 'exception' => $exception,
-                'trace'     => $trace
+                'trace'     => $trace,
+                'logger'    => $logger
             )
         ), 0);
         

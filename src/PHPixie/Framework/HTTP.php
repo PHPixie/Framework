@@ -40,8 +40,8 @@ class HTTP
         $httpConfig = $this->builder->configuration()->httpConfig();
         
         return $route->translator(
+            $this->builder->configuration()->httpRouteResolver(),
             $httpConfig->slice('translator'),
-            $this->builder->configuration()->routeResolver(),
             $this->builder->context()
         );
     }

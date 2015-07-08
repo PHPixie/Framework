@@ -26,7 +26,8 @@ class Exception implements \PHPixie\Processors\Processor
             $templateName,
             array(
                 'exception' => $exception,
-                'trace'     => $trace
+                'trace'     => $trace,
+                'logger'    => $this->debug->logger()
             )
         );
         

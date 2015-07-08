@@ -9,7 +9,7 @@ interface Configuration
     
     public function httpConfig();
     public function httpProcessor();
-    public function routeResolver();
+    public function httpRouteResolver();
 
     public function ormConfig();
     public function ormWrappers();

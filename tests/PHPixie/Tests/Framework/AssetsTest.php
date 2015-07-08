@@ -46,8 +46,8 @@ class AssetsTest extends \PHPixie\Test\Testcase
      */
     public function testFrameworkTemplateLocator()
     {
-        $this->assets = $this->assetsMock(array('assetsRoot'));
-        $assetsRoot   = $this->prepareRoot('assetsRoot');
+        $this->assets = $this->assetsMock(array('frameworkAssetsRoot'));
+        $assetsRoot   = $this->prepareRoot('frameworkAssetsRoot');
         
         $slice      = $this->prepareComponent('slice');
         $filesystem = $this->prepareComponent('filesystem');

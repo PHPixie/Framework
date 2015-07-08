@@ -72,9 +72,9 @@ class HTTPTest extends \PHPixie\Test\Testcase
         }
         
         $this->configuration = array(
-            'httpProcessor' => $this->quickMock('\PHPixie\Processors\Dispatcher'),
-            'routeResolver' => $this->quickMock('\PHPixie\Route\Resolvers\Resolver'),
-            'httpConfig'    => $this->quickMock('\PHPixie\Slice\Data'),
+            'httpProcessor'     => $this->quickMock('\PHPixie\Processors\Dispatcher'),
+            'httpRouteResolver' => $this->quickMock('\PHPixie\Route\Resolvers\Resolver'),
+            'httpConfig'        => $this->quickMock('\PHPixie\Slice\Data'),
         );
         
         foreach($this->configuration as $key => $value) {
@@ -232,8 +232,8 @@ class HTTPTest extends \PHPixie\Test\Testcase
             'translator',
             $translator,
             array(
+                $this->configuration['httpRouteResolver'],
                 $config,
-                $this->configuration['routeResolver'],
                 $this->context,
             ),
             0

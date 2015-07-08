@@ -56,7 +56,7 @@ class Assets
         
         return $filesystem->buildLocator(
             $configData,
-            $this->assetsRoot()
+            $this->frameworkAssetsRoot()
         );
     }
 }
