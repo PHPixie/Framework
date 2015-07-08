@@ -47,7 +47,7 @@ class ExceptionTest extends \PHPixie\Test\Testcase
      */
     public function testProcess()
     {
-        $exception = $this->quickMock('\Exception');
+        $exception = new \Exception();
         
         $this->method($this->configData, 'getRequired', 'pixie', array('template'), 0);
         
