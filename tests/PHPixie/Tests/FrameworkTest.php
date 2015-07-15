@@ -57,6 +57,25 @@ class FrameworkTest extends \PHPixie\Test\Testcase
         $this->assertSame($response, $this->framework->processHttpServerRequest($request));
     }
     
+    /**
+     * @covers ::registerDebugHandlers
+     * @covers ::<protected>
+     */
+    public function testRegisterDebugHandlers()
+    {
+        $components = $this->quickMock('\PHPixie\Framework\Components');
+        $this->method($this->builder, 'components', $components, array());
+        
+        $debug = $this->quickMock('\PHPixie\Debug');
+        $this->method($components, 'debug', $debug, array());
+        
+        $this->method($debug, 'registerHandlers', null, array(true, false, false), 0);
+        $this->framework->registerDebugHandlers(true, false, false);
+        
+        $this->method($debug, 'registerHandlers', null, array(false, true, true), 0);
+        $this->framework->registerDebugHandlers();
+    }
+    
     protected function http()
     {
         return $this->quickMock('\PHPixie\Framework\HTTP');
