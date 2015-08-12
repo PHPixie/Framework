@@ -35,6 +35,24 @@ class FrameworkTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::builder
+     * @covers ::<protected>
+     */
+    public function testBuilder()
+    {
+        $this->assertSame($this->builder, $this->framework->builder());
+    }
+    
+    /**
+     * @covers ::components
+     * @covers ::<protected>
+     */
+    public function testComponents()
+    {
+        $this->assertSame($this->components, $this->framework->components());
+    }
+    
+    /**
      * @covers ::processHttpSapiRequest
      * @covers ::<protected>
      */

@@ -11,6 +11,11 @@ abstract class Framework
         $this->builder = $this->buildBuilder();
     }
     
+    public function builder()
+    {
+        return $this->builder;
+    }
+    
     public function processHttpSapiRequest()
     {
         $this->builder->http()->processSapiRequest();
