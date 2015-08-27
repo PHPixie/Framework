@@ -92,10 +92,13 @@
                                 <?php endforeach;?>
 						</div>
 					</div>
-					<?php if(!empty($logger->items())):?>
+					<?php 
+						$items = $logger->items();
+						if(!empty($items)):
+					?>
 						<div id="debug">
 							<div id="log">Logged values:</div>
-							<?php foreach($logger->items() as $key => $item):?>
+							<?php foreach($items as $key => $item):?>
 								<div class="log">
         						<div class="file"><?=$_($item->traceElement()->location())?></div>
 
