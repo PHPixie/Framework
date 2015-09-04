@@ -16,4 +16,7 @@ interface Configuration
     
     public function filesystemRoot();
     public function templateLocator();
+    
+    public function authConfig();
+    public function authRepositories();
 }

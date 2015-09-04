@@ -23,8 +23,22 @@ class ContextTest extends \PHPixie\Test\Testcase
     {
         $this->assertSame(null, $this->context->httpContext());
         
-        $httpContext = $this->quickMock('\PHPixie\Tests\HTTP\Context');
+        $httpContext = $this->quickMock('\PHPixie\HTTP\Context');
         $this->context->setHttpContext($httpContext);
         $this->assertSame($httpContext, $this->context->httpContext());
+    }
+    
+    /**
+     * @covers ::authContext
+     * @covers ::setAuthContext
+     * @covers ::<protected>
+     */
+    public function testAuthContext()
+    {
+        $this->assertSame(null, $this->context->authContext());
+        
+        $authContext = $this->quickMock('\PHPixie\Auth\Context');
+        $this->context->setAuthContext($authContext);
+        $this->assertSame($authContext, $this->context->authContext());
     }
 }

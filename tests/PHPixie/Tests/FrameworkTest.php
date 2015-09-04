@@ -11,6 +11,7 @@ class FrameworkTest extends \PHPixie\Test\Testcase
     
     protected $builder;
     protected $http;
+    protected $components;
     
     public function setUp()
     {
@@ -21,6 +22,9 @@ class FrameworkTest extends \PHPixie\Test\Testcase
         
         $this->http = $this->http();
         $this->method($this->builder, 'http', $this->http, array());
+        
+        $this->components = $this->quickMock('\PHPixie\Framework\Components');
+        $this->method($this->builder, 'components', $this->components, array());
         
         $this->framework->__construct();
     }
@@ -41,15 +45,6 @@ class FrameworkTest extends \PHPixie\Test\Testcase
     public function testBuilder()
     {
         $this->assertSame($this->builder, $this->framework->builder());
-    }
-    
-    /**
-     * @covers ::components
-     * @covers ::<protected>
-     */
-    public function testComponents()
-    {
-        $this->assertSame($this->components, $this->framework->components());
     }
     
     /**
@@ -81,11 +76,8 @@ class FrameworkTest extends \PHPixie\Test\Testcase
      */
     public function testRegisterDebugHandlers()
     {
-        $components = $this->quickMock('\PHPixie\Framework\Components');
-        $this->method($this->builder, 'components', $components, array());
-        
         $debug = $this->quickMock('\PHPixie\Debug');
-        $this->method($components, 'debug', $debug, array());
+        $this->method($this->components, 'debug', $debug, array());
         
         $this->method($debug, 'registerHandlers', null, array(true, false, false), 0);
         $this->framework->registerDebugHandlers(true, false, false);

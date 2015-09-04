@@ -18,6 +18,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
     protected $componentNames = array(
         'http'           => '\PHPixie\HTTP',
         'httpProcessors' => '\PHPixie\HTTPProcessors',
+        'authProcessors' => '\PHPixie\AuthProcessors',
         'processors',
         'route'
     );
@@ -28,6 +29,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
     protected $processorPrefixes = array(
         'processors'          => '\PHPixie\Processors\Processor\\',
         'httpProcessors'      => '\PHPixie\HTTPProcessors\Processor\\',
+        'authProcessors'      => '\PHPixie\AuthProcessors\Processor\\',
         'frameworkProcessors' => '\PHPixie\Framework\Processors\\',
     );
     
@@ -188,6 +190,7 @@ class HTTPTest extends \PHPixie\Test\Testcase
         return $this->prepareProcessor('processors', 'catchException', array(
             $this->prepareProcessor('processors', 'chain', array(array(
                 $this->prepareRequestProcessor(),
+                $this->prepareContextProcessor(),
                 $this->prepareProcessor('processors', 'checkIsProcessable', array(
                     $this->configuration['httpProcessor'],
                     $this->prepareDispatchProcessor(),
@@ -203,10 +206,19 @@ class HTTPTest extends \PHPixie\Test\Testcase
         return $this->prepareProcessor('processors', 'chain', array(array(
             $this->prepareProcessor('httpProcessors', 'parseBody', array()),
             $this->prepareParseRouteProcessor(),
+            $this->prepareProcessor('httpProcessors', 'buildRequest', array()),
+        )));
+    }
+    
+    protected function prepareContextProcessor()
+    {
+        return $this->prepareProcessor('processors', 'chain', array(array(
             $this->prepareProcessor('httpProcessors', 'updateContext', array(
                 $this->context
             )),
-            $this->prepareProcessor('httpProcessors', 'buildRequest', array()),
+            $this->prepareProcessor('authProcessors', 'updateContext', array(
+                $this->context
+            ))
         )));
     }
     

@@ -12,6 +12,7 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     protected $components;
     
     protected $configuration;
+    protected $context;
     protected $extensions;
     
     public function setUp()
@@ -21,6 +22,9 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         
         $this->configuration = $this->quickMock('\PHPixie\Framework\Configuration');
         $this->method($this->builder, 'configuration', $this->configuration, array());
+        
+        $this->context = $this->quickMock('\PHPixie\Framework\Context');
+        $this->method($this->builder, 'context', $this->context, array());
         
         $this->extensions = $this->extensions();
         $this->method($this->builder, 'extensions', $this->extensions, array());
@@ -189,6 +193,42 @@ class ComponentsTest extends \PHPixie\Test\Testcase
             'filesystemRoot'     => $root,
             'externalExtensions' => $templateExtensions,
             'externalFormats'    => $templateFormats
+        ));
+    }
+    
+    /**
+     * @covers ::auth
+     * @covers ::<protected>
+     */
+    public function testAuth()
+    {
+        $this->components = $this->components(array('database'));
+        
+        $database   = $this->prepareComponent('database');
+        $configData = $this->prepareConfig('auth');
+        
+        $repositories = $this->quickMock('\PHPixie\Auth\Repositories\Registry');
+        $this->method($this->configuration, 'authRepositories', $repositories, array());
+        
+        $this->assertComponent('auth', '\PHPixie\Auth', array(
+            'database'   => $database,
+            'configData' => $configData,
+            'httpContextContainer' => $this->context,
+            'authContextContainer' => $this->context
+        ));
+    }
+    
+    /**
+     * @covers ::authProcessors
+     * @covers ::<protected>
+     */
+    public function testAuthProcessors()
+    {
+        $this->components = $this->components(array('auth'));
+        $auth = $this->prepareComponent('auth');
+        
+        $this->assertComponent('authProcessors', '\PHPixie\AuthProcessors', array(
+            'auth' => $auth
         ));
     }
     

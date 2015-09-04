@@ -75,6 +75,7 @@ class HTTP
         return $processors->catchException(
             $processors->chain(array(
                 $this->requestProcessor(),
+                $this->contextProcessor(),
                 $processors->checkIsProcessable(
                     $this->builder->configuration()->httpProcessor(),
                     $this->dispatchProcessor(),
@@ -95,10 +96,23 @@ class HTTP
         return $processors->chain(array(
             $httpProcessors->parseBody(),
             $this->parseRouteProcessor(),
-            $httpProcessors->updateContext(
-                $this->builder->context()
-            ),
             $httpProcessors->buildRequest()
+        ));
+    }
+    
+    protected function contextProcessor()
+    {
+        $components = $this->builder->components();
+        
+        $processors     = $components->processors();
+        $httpProcessors = $components->httpProcessors();
+        $authProcessors = $components->authProcessors();
+        
+        $context = $this->builder->context();
+        
+        return $processors->chain(array(
+            $httpProcessors->updateContext($context),
+            $authProcessors->updateContext($context),
         ));
     }
     
