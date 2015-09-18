@@ -25,8 +25,11 @@
         "phpixie/http": "3.*@dev",
         "psr/http-message": "1.*@dev",
         "phpixie/http-processors": "3.*@dev",
+        "phpixie/security": "3.*@dev",
         "phpixie/auth": "3.*@dev",
         "phpixie/auth-orm": "3.*@dev",
+        "phpixie/auth-http": "3.*@dev",
+        "phpixie/auth-login": "3.*@dev",
         "phpixie/auth-processors": "3.*@dev"
     },
     "require-dev": {

@@ -204,17 +204,14 @@ class ComponentsTest extends \PHPixie\Test\Testcase
     {
         $this->components = $this->components(array('database'));
         
-        $database   = $this->prepareComponent('database');
         $configData = $this->prepareConfig('auth');
         
         $repositories = $this->quickMock('\PHPixie\Auth\Repositories\Registry');
         $this->method($this->configuration, 'authRepositories', $repositories, array());
         
         $this->assertComponent('auth', '\PHPixie\Auth', array(
-            'database'   => $database,
             'configData' => $configData,
-            'httpContextContainer' => $this->context,
-            'authContextContainer' => $this->context
+            'contextContainer' => $this->context
         ));
     }
     

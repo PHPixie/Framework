@@ -25,4 +25,14 @@ class Extensions
     {
         return array();
     }
+    
+    public function authProviderBuilders()
+    {
+        $components = $this->builder->components();
+        
+        return array(
+            $components->authLogin()->providers(),
+            $components->authHttp()->providers()
+        );
+    }
 }

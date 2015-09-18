@@ -67,6 +67,11 @@ class Components
         return $this->instance('route');
     }
     
+    public function security()
+    {
+        return $this->instance('security');
+    }
+    
     public function auth()
     {
         return $this->instance('auth');
@@ -75,6 +80,16 @@ class Components
     public function authProcessors()
     {
         return $this->instance('authProcessors');
+    }
+    
+    public function authLogin()
+    {
+        return $this->instance('authLogin');
+    }
+    
+    public function authHttp()
+    {
+        return $this->instance('authHttp');
     }
 
     protected function instance($name)
@@ -173,17 +188,37 @@ class Components
         return new \PHPixie\Route();
     }
     
+    protected function buildSecurity()
+    {
+        return new \PHPixie\Security(
+            $this->database()
+        );
+    }
+    
     protected function buildAuth()
     {
         $configuration = $this->configuration();
-        $context       = $this->builder->context();
         
         return new \PHPixie\Auth(
-            $this->database(),
             $configuration->authConfig(),
             $configuration->authRepositories(),
-            $context,
-            $context
+            $this->builder->extensions()->authProviderBuilders(),
+            $this->builder->context()
+        );
+    }
+    
+    protected function buildAuthLogin()
+    {
+        return new \PHPixie\AuthLogin(
+            $this->security()
+        );
+    }
+    
+    protected function buildAuthHttp()
+    {
+        return new \PHPixie\AuthHTTP(
+            $this->security(),
+            $this->builder->context()
         );
     }
     
