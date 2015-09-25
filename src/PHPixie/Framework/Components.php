@@ -91,7 +91,17 @@ class Components
     {
         return $this->instance('authHttp');
     }
-
+    
+    public function paginate()
+    {
+        return $this->instance('paginate');
+    }
+    
+    public function paginateOrm()
+    {
+        return $this->instance('paginateOrm');
+    }
+    
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
@@ -219,6 +229,18 @@ class Components
         return new \PHPixie\AuthHTTP(
             $this->security(),
             $this->builder->context()
+        );
+    }
+    
+    protected function buildPaginate()
+    {
+        return new \PHPixie\Paginate();
+    }
+    
+    protected function buildPaginateOrm()
+    {
+        return new \PHPixie\PaginateORM(
+            $this->paginate()
         );
     }
     

@@ -229,6 +229,29 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         ));
     }
     
+    /**
+     * @covers ::paginate
+     * @covers ::<protected>
+     */
+    public function testPaginate()
+    {
+        $this->assertComponent('paginate', '\PHPixie\Paginate');
+    }
+    
+    /**
+     * @covers ::paginateOrm
+     * @covers ::<protected>
+     */
+    public function testPaginateOrm()
+    {
+        $this->components = $this->components(array('paginate'));
+        $paginate = $this->prepareComponent('paginate');
+        
+        $this->assertComponent('paginateOrm', '\PHPixie\PaginateORM', array(
+            'paginate' => $paginate
+        ));
+    }
+    
     protected function assertComponent($name, $class, $builderAttributes = null)
     {
         $instance = $this->components->$name();
