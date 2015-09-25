@@ -82,16 +82,6 @@ class Components
         return $this->instance('authProcessors');
     }
     
-    public function authLogin()
-    {
-        return $this->instance('authLogin');
-    }
-    
-    public function authHttp()
-    {
-        return $this->instance('authHttp');
-    }
-    
     public function paginate()
     {
         return $this->instance('paginate');
@@ -213,21 +203,6 @@ class Components
             $configuration->authConfig(),
             $configuration->authRepositories(),
             $this->builder->extensions()->authProviderBuilders(),
-            $this->builder->context()
-        );
-    }
-    
-    protected function buildAuthLogin()
-    {
-        return new \PHPixie\AuthLogin(
-            $this->security()
-        );
-    }
-    
-    protected function buildAuthHttp()
-    {
-        return new \PHPixie\AuthHTTP(
-            $this->security(),
             $this->builder->context()
         );
     }

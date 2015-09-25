@@ -51,16 +51,104 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
         $this->assertSame(array(), $this->extensions->templateFormats());
     }
     
+    /**
+     * @covers ::authProviderBuilders
+     * @covers ::<protected>
+     */
+    public function testAuthProviderBuilders()
+    {
+        $extensions = $this->extensionsMock(array(
+            'buildAuthLogin',
+            'buildAuthHttp'
+        ));
+        
+        $authLogin = $this->quickMock('\PHPixie\AuthLogin');
+        $this->method($extensions, 'buildAuthLogin', $authLogin, array(), 0);
+        
+        $authLoginProviders = $this->quickMock('\PHPixie\AuthLogin\Providers');
+        $this->method($authLogin, 'providers', $authLoginProviders, array(), 0);
+        
+        $authHttp  = $this->quickMock('\PHPixie\AuthHTTP');
+        $this->method($extensions, 'buildAuthHttp', $authHttp, array(), 1);
+        
+        $authHttpProviders = $this->quickMock('\PHPixie\AuthHTTP\Providers');
+        $this->method($authHttp, 'providers', $authHttpProviders, array(), 0);
+        
+        $this->assertSame(
+            array(
+                $authLoginProviders,
+                $authHttpProviders
+            ),
+            $extensions->authProviderBuilders()
+        );
+    }
+    
+    /**
+     * @covers ::buildAuthLogin
+     * @covers ::<protected>
+     */
+    public function testBuildAuthLogin()
+    {
+        $components = $this->getComponents();
+        $this->method($this->builder, 'components', $components, array(), 0);
+        
+        $security = $this->quickMock('\PHPixie\Security');
+        $this->method($components, 'security', $security, array(), 0);
+        
+        $authLogin = $this->extensions->buildAuthLogin();
+        $this->assertInstance($authLogin, '\PHPixie\AuthLogin');
+        $this->assertInstance($authLogin->builder(), '\PHPixie\AuthLogin\Builder', array(
+            'security'             => $security
+        ));
+    }
+    /**
+     * @covers ::buildAuthHttp
+     * @covers ::<protected>
+     */
+    public function testBuildAuthHttp()
+    {
+        $components = $this->getComponents();
+        $this->method($this->builder, 'components', $components, array(), 0);
+        
+        $security = $this->quickMock('\PHPixie\Security');
+        $this->method($components, 'security', $security, array(), 0);
+        
+        $context = $this->quickMock('\PHPixie\Framework\Context');
+        $this->method($this->builder, 'context', $context, array(), 1);
+        
+        $authHttp = $this->extensions->buildAuthHttp();
+        $this->assertInstance($authHttp, '\PHPixie\AuthHttp');
+        $this->assertInstance($authHttp->builder(), '\PHPixie\AuthHttp\Builder', array(
+            'security'             => $security,
+            'httpContextContainer' => $context
+        ));
+    }
+    
     protected function assertTemplateRouteExtension($extension)
     {
-        $this->assertInstance($extension, 'PHPixie\Framework\Extensions\Template\Extension\RouteTranslator', array(
+        $class = 'PHPixie\Framework\Extensions\Template\Extension\RouteTranslator';
+        $this->assertInstance($extension, $class, array(
             'name'            => 'http',
             'routeTranslator' => $this->routeTranslator
         ));
     }
     
+    protected function getComponents()
+    {
+        return $this->quickMock('\PHPixie\Framework\Components');
+    }
+    
     protected function extensions()
     {
         return new \PHPixie\Framework\Extensions($this->builder);
+    }
+    
+    protected function extensionsMock($methods)
+    {
+        return $this->quickMock(
+            '\PHPixie\Framework\Extensions',
+            $methods,
+            array($this->builder)
+        );
     }
 }

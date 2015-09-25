@@ -28,11 +28,29 @@ class Extensions
     
     public function authProviderBuilders()
     {
-        $components = $this->builder->components();
-        
         return array(
-            $components->authLogin()->providers(),
-            $components->authHttp()->providers()
+            $this->buildAuthLogin()->providers(),
+            $this->buildAuthHttp()->providers()
         );
+    }
+    
+    public function buildAuthLogin()
+    {
+        return new \PHPixie\AuthLogin(
+            $this->components()->security()
+        );
+    }
+    
+    public function buildAuthHttp()
+    {
+        return new \PHPixie\AuthHTTP(
+            $this->components()->security(),
+            $this->builder->context()
+        );
+    }
+    
+    protected function components()
+    {
+        return $this->builder->components();
     }
 }
