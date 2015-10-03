@@ -92,25 +92,26 @@
                                 <?php endforeach;?>
 						</div>
 					</div>
-					<?php 
-						$items = $logger->items();
-						if(!empty($items)):
-					?>
-						<div id="debug">
-							<div id="log">Logged values:</div>
-							<?php foreach($items as $key => $item):?>
-								<div class="log">
-        						<div class="file"><?=$_($item->traceElement()->location())?></div>
-
-									<pre><?php
-                                        echo $_($item->valueDump());
-                                    ?></pre>
-								</div>
-							<?php endforeach;?>
-						</div>
-					<?php endif;?>
 				<?php endforeach;?>
 			</div>
+			<?php 
+				$items = $logger->items();
+				if(!empty($items)):
+			?>
+				<div id="debug">
+					<div id="log">Logged values:</div>
+					<?php foreach($items as $key => $item):?>
+						<div class="log">
+        						<div class="file">
+								<?php echo $_($item->traceElement()->location());?>
+        						</div>
+							<pre><?php
+								echo $_($item->valueDump());
+							?></pre>
+						</div>
+					<?php endforeach;?>
+					</div>
+				<?php endif;?>
 		</div>
 	</body>
 </html>
