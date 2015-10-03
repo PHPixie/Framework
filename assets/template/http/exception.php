@@ -37,6 +37,11 @@
 			.highlight{
 				background:#efecd0;
 			}
+            #chat{
+                font-size:15px;
+				font-weight:bold;
+				padding:10px;
+            }
 			#exception{
 				font-size:25px;
 				font-weight:bold;
@@ -68,6 +73,7 @@
 	</head>
 	<body>
 		<div id="content">
+            <div id="chat">Facing a problem? <a target="_blank" href="http://gitter.im/PHPixie/Hotline">Get help in our chatroom</a></div>
 			<div id="exception"><?=$_($exception->getMessage());?></div>
 			<div id="blocks">
 				<?php foreach($trace->elements() as $key => $element):	?>
