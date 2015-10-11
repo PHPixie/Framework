@@ -13,29 +13,28 @@
         }
     ],
     "require": {
-        "phpixie/debug": "3.*@dev",
-        "phpixie/route": "3.*@dev",
-        "phpixie/template": "3.*@dev",
-        "phpixie/filesystem": "3.*@dev",
-        "phpixie/database": "3.*@dev",
-        "phpixie/config": "3.*@dev",
-        "phpixie/orm": "3.*@dev",
-        "phpixie/slice": "3.*@dev",
-        "phpixie/processors": "3.*@dev",
-        "phpixie/http": "3.*@dev",
-        "psr/http-message": "1.*@dev",
-        "phpixie/http-processors": "3.*@dev",
-        "phpixie/security": "3.*@dev",
-        "phpixie/auth": "3.*@dev",
-        "phpixie/auth-orm": "3.*@dev",
-        "phpixie/auth-http": "3.*@dev",
-        "phpixie/auth-login": "3.*@dev",
-        "phpixie/auth-processors": "3.*@dev",
-        "phpixie/paginate": "3.*@dev",
-        "phpixie/paginate-orm": "3.*@dev"
+        "phpixie/debug": "~3.0",
+        "phpixie/route": "~3.0",
+        "phpixie/template": "~3.0",
+        "phpixie/filesystem": "~3.0",
+        "phpixie/database": "~3.0",
+        "phpixie/config": "~3.0",
+        "phpixie/orm": "~3.0",
+        "phpixie/slice": "~3.0",
+        "phpixie/processors": "~3.0",
+        "phpixie/http": "~3.0",
+        "phpixie/http-processors": "~3.0",
+        "phpixie/security": "~3.0",
+        "phpixie/auth": "~3.0",
+        "phpixie/auth-orm": "~3.0",
+        "phpixie/auth-http": "~3.0",
+        "phpixie/auth-login": "~3.0",
+        "phpixie/auth-processors": "~3.0",
+        "phpixie/paginate": "~3.0",
+        "phpixie/paginate-orm": "~3.0"
     },
     "require-dev": {
-        "phpixie/test": "3.*@dev"
+        "phpixie/test": "~3.0"
     },
     "autoload": {
         "psr-4": {
