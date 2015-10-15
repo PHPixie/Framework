@@ -4,6 +4,9 @@ namespace PHPixie\Framework;
 
 class Assets
 {
+    /**
+     * @type Components
+     */
     protected $components;
     protected $instances = array();
     

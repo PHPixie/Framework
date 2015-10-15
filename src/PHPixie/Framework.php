@@ -4,6 +4,9 @@ namespace PHPixie;
 
 abstract class Framework
 {
+    /**
+     * @type Framework\Builder
+     */
     protected $builder;
     
     public function __construct()

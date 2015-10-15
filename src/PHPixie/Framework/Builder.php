@@ -5,32 +5,50 @@ namespace PHPixie\Framework;
 abstract class Builder
 {
     protected $instances = array();
-    
+
+    /**
+     * @return Assets
+     */
     public function assets()
     {
         return $this->instance('assets');
     }
-    
+
+    /**
+     * @return Components
+     */
     public function components()
     {
         return $this->instance('components');
     }
-    
+
+    /**
+     * @return Context
+     */
     public function context()
     {
         return $this->instance('context');
     }
-    
+
+    /**
+     * @return Extensions
+     */
     public function extensions()
     {
         return $this->instance('extensions');
     }
-    
+
+    /**
+     * @return HTTP
+     */
     public function http()
     {
         return $this->instance('http');
     }
-    
+
+    /**
+     * @return Processors
+     */
     public function processors()
     {
         return $this->instance('processors');

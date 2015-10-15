@@ -4,6 +4,9 @@ namespace PHPixie\Framework;
 
 class Processors
 {
+    /**
+     * @type Builder
+     */
     protected $builder;
     
     public function __construct($builder)

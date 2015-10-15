@@ -4,6 +4,9 @@ namespace PHPixie\Framework\Processors\HTTP;
 
 class ParseRoute implements \PHPixie\Processors\Processor
 {
+    /**
+     * @type \PHPixie\Route\Translator
+     */
     protected $routeTranslator;
     
     public function __construct($routeTranslator)
