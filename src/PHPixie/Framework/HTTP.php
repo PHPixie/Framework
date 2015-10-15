@@ -4,6 +4,9 @@ namespace PHPixie\Framework;
 
 class HTTP
 {
+    /**
+     * @type Builder
+     */
     protected $builder;
     protected $configData;
     
@@ -18,7 +21,10 @@ class HTTP
     {
         return $this->instance('processor');
     }
-    
+
+    /**
+     * @return \PHPixie\Route\Translator
+     */
     public function routeTranslator()
     {
         return $this->instance('routeTranslator');

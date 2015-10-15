@@ -4,13 +4,16 @@ namespace PHPixie\Framework;
 
 class Extensions
 {
+    /**
+     * @type Builder
+     */
     protected $builder;
     
     public function __construct($builder)
     {
         $this->builder = $builder;
     }
-    
+
     public function templateExtensions()
     {
         return array(

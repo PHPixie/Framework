@@ -4,89 +4,143 @@ namespace PHPixie\Framework;
 
 class Components
 {
+    /**
+     * @type Builder
+     */
     protected $builder;
     protected $instances = array();
-    
+
+    /**
+     * @param Builder $builder
+     */
     public function __construct($builder)
     {
         $this->builder = $builder;
     }
-    
+
+    /**
+     * @return \PHPixie\Slice
+     */
     public function slice()
     {
         return $this->instance('slice');
     }
-    
+
+    /**
+     * @return \PHPixie\Config
+     */
     public function config()
     {
         return $this->instance('config');
     }
-    
+
+    /**
+     * @return \PHPixie\Debug
+     */
     public function debug()
     {
         return $this->instance('debug');
     }
-    
+
+    /**
+     * @return \PHPixie\Database
+     */
     public function database()
     {
         return $this->instance('database');
     }
-    
+
+    /**
+     * @return \PHPixie\Filesystem
+     */
     public function filesystem()
     {
         return $this->instance('filesystem');
     }
-    
+
+    /**
+     * @return \PHPixie\HTTP
+     */
     public function http()
     {
         return $this->instance('http');
     }
-    
+
+    /**
+     * @return \PHPixie\HTTPProcessors
+     */
     public function httpProcessors()
     {
         return $this->instance('httpProcessors');
     }
-    
+
+    /**
+     * @return \PHPixie\ORM
+     */
     public function orm()
     {
         return $this->instance('orm');
     }
-    
+
+    /**
+     * @return \PHPixie\Processors
+     */
     public function processors()
     {
         return $this->instance('processors');
     }
-    
+
+    /**
+     * @return \PHPixie\Template
+     */
     public function template()
     {
         return $this->instance('template');
     }
-    
+
+    /**
+     * @return \PHPixie\Route
+     */
     public function route()
     {
         return $this->instance('route');
     }
-    
+
+    /**
+     * @return \PHPixie\Security
+     */
     public function security()
     {
         return $this->instance('security');
     }
-    
+
+    /**
+     * @return \PHPixie\Auth
+     */
     public function auth()
     {
         return $this->instance('auth');
     }
-    
+
+    /**
+     * @return \PHPixie\AuthProcessors
+     */
     public function authProcessors()
     {
         return $this->instance('authProcessors');
     }
-    
+
+    /**
+     * @return \PHPixie\Paginate
+     */
     public function paginate()
     {
         return $this->instance('paginate');
     }
-    
+
+    /**
+     * @return \PHPixie\PaginateORM
+     */
     public function paginateOrm()
     {
         return $this->instance('paginateOrm');

@@ -6,6 +6,10 @@ class RouteTranslator implements \PHPixie\Template\Extensions\Extension
 {
     
     protected $name;
+
+    /**
+     * @type \PHPixie\Route\Translator
+     */
     protected $routeTranslator;
     
     public function __construct($name, $routeTranslator)
