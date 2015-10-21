@@ -20,7 +20,7 @@ class ComponentsTest extends \PHPixie\Test\Testcase
         $this->builder = $this->builder();
         $this->components = $this->components(null);
         
-        $this->configuration = $this->quickMock('\PHPixie\Framework\Configuration');
+        $this->configuration = $this->configuration();
         $this->method($this->builder, 'configuration', $this->configuration, array());
         
         $this->context = $this->quickMock('\PHPixie\Framework\Context');
@@ -317,5 +317,10 @@ class ComponentsTest extends \PHPixie\Test\Testcase
             $methods,
             array($this->builder)
         );
+    }
+    
+    protected function configuration()
+    {
+        return $this->quickMock('\PHPixie\Framework\Configuration');
     }
 }
