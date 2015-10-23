@@ -61,7 +61,7 @@
 				border-bottom: 1px solid black;
 			}
 			.log.odd{
-				
+
 			}
 			pre{
 				margin:0px;
@@ -74,13 +74,13 @@
 	<body>
 		<div id="content">
             <div id="chat">Facing a problem? <a target="_blank" href="http://gitter.im/PHPixie/Hotline">Get help in our chatroom</a></div>
-			<div id="exception"><?=$_($exception->getMessage());?></div>
+			<div id="exception"><?=$this->htmlEscape($exception->getMessage())?></div>
 			<div id="blocks">
 				<?php foreach($trace->elements() as $key => $element):	?>
 					<div class="block">
-						<div class="file"><?=$_($element->location())?></div>
+						<div class="file"><?=$this->htmlEscape($element->location())?></div>
 						<div class="code">
-							<?php 
+							<?php
                                 $offsets = $element->getNeighboringOffsets(7);
                                 $pad = strlen($element->line(end($offsets)));
                                 foreach($offsets as $key => $offset):
@@ -90,17 +90,17 @@
                                     }else{
                                         $prefix = str_pad('', $pad, '>');
                                     }
-                                    
+
                                 ?>
 							    <pre class="line <?php echo $offset==0?'highlight':''; ?>"><?php
-                                     echo $_($prefix.'    '.$element->lineContents($offset));
+                                     $this->htmlOutput($prefix.'    '.$element->lineContents($offset));
                                 ?></pre>
                                 <?php endforeach;?>
 						</div>
 					</div>
 				<?php endforeach;?>
 			</div>
-			<?php 
+			<?php
 				$items = $logger->items();
 				if(!empty($items)):
 			?>
@@ -109,10 +109,12 @@
 					<?php foreach($items as $key => $item):?>
 						<div class="log">
         						<div class="file">
-								<?php echo $_($item->traceElement()->location());?>
+								<?php
+									$this->htmlOutput($item->traceElement()->location());
+								?>
         						</div>
 							<pre><?php
-								echo $_($item->valueDump());
+								$this->htmlOutput($item->valueDump());
 							?></pre>
 						</div>
 					<?php endforeach;?>
