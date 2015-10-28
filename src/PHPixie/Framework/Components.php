@@ -146,6 +146,14 @@ class Components
         return $this->instance('paginateOrm');
     }
     
+    /**
+     * @return \PHPixie\Validate
+     */
+    public function validate()
+    {
+        return $this->instance('validate');
+    }
+    
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
@@ -271,6 +279,11 @@ class Components
         return new \PHPixie\PaginateORM(
             $this->paginate()
         );
+    }
+    
+    protected function buildValidate()
+    {
+        return new \PHPixie\Validate();
     }
     
     protected function configuration()
