@@ -30,7 +30,7 @@ class Assets
     }
 
     /**
-     * Assets root directory
+     * Framework assets root directory
      * @return Root
      */
     public function frameworkAssetsRoot()
@@ -39,7 +39,7 @@ class Assets
     }
 
     /**
-     * Filesystem locator for templates
+     * Filesystem locator for framework templates
      * @return Locator
      */
     public function frameworkTemplateLocator()
