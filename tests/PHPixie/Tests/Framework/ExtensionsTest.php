@@ -9,6 +9,7 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
 {
     protected $builder;
     protected $http;
+    protected $debug;
     protected $routeTranslator;
     
     public function setUp()
@@ -38,8 +39,16 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
      */
     public function testTemplateExtensions()
     {
+        $components = $this->getComponents();
+        $this->method($this->builder, 'components', $components, array(), 0);
+
+        $debug = $this->quickMock('\PHPixie\Debug');
+        $this->method($components, 'debug', $debug, array(), 0);
+
         $extensions = $this->extensions->templateExtensions();
-        $this->assertTemplateRouteExtension($extensions[0]);
+
+        $this->assertTemplateDebugExtension($extensions[0], $debug);
+        $this->assertTemplateRouteExtension($extensions[1]);
     }
     
     /**
@@ -123,7 +132,15 @@ class ExtenionsTest extends \PHPixie\Test\Testcase
             'httpContextContainer' => $context
         ));
     }
-    
+
+    protected function assertTemplateDebugExtension($extension, $debug)
+    {
+        $class = 'PHPixie\Framework\Extensions\Template\Extension\Debug';
+        $this->assertInstance($extension, $class, array(
+            'debug' => $debug
+        ));
+    }
+
     protected function assertTemplateRouteExtension($extension)
     {
         $class = 'PHPixie\Framework\Extensions\Template\Extension\RouteTranslator';

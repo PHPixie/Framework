@@ -2,12 +2,19 @@
 
 namespace PHPixie\Framework;
 
+/**
+ * PHPixie components registry
+ */
 class Components
 {
     /**
      * @type Builder
      */
     protected $builder;
+
+    /**
+     * @var array
+     */
     protected $instances = array();
 
     /**
@@ -19,6 +26,7 @@ class Components
     }
 
     /**
+     * Slice
      * @return \PHPixie\Slice
      */
     public function slice()
@@ -27,6 +35,7 @@ class Components
     }
 
     /**
+     * Config
      * @return \PHPixie\Config
      */
     public function config()
@@ -35,6 +44,7 @@ class Components
     }
 
     /**
+     * Debug
      * @return \PHPixie\Debug
      */
     public function debug()
@@ -43,6 +53,7 @@ class Components
     }
 
     /**
+     * Database
      * @return \PHPixie\Database
      */
     public function database()
@@ -51,6 +62,7 @@ class Components
     }
 
     /**
+     * Filesystem
      * @return \PHPixie\Filesystem
      */
     public function filesystem()
@@ -59,6 +71,7 @@ class Components
     }
 
     /**
+     * HTTP
      * @return \PHPixie\HTTP
      */
     public function http()
@@ -67,6 +80,7 @@ class Components
     }
 
     /**
+     * HTTP processors
      * @return \PHPixie\HTTPProcessors
      */
     public function httpProcessors()
@@ -75,6 +89,7 @@ class Components
     }
 
     /**
+     * ORM
      * @return \PHPixie\ORM
      */
     public function orm()
@@ -83,6 +98,7 @@ class Components
     }
 
     /**
+     * Processors
      * @return \PHPixie\Processors
      */
     public function processors()
@@ -91,6 +107,7 @@ class Components
     }
 
     /**
+     * Template
      * @return \PHPixie\Template
      */
     public function template()
@@ -99,6 +116,7 @@ class Components
     }
 
     /**
+     * Route
      * @return \PHPixie\Route
      */
     public function route()
@@ -107,6 +125,7 @@ class Components
     }
 
     /**
+     * Security
      * @return \PHPixie\Security
      */
     public function security()
@@ -115,6 +134,7 @@ class Components
     }
 
     /**
+     * Auth
      * @return \PHPixie\Auth
      */
     public function auth()
@@ -123,6 +143,7 @@ class Components
     }
 
     /**
+     * Auth processors
      * @return \PHPixie\AuthProcessors
      */
     public function authProcessors()
@@ -131,6 +152,7 @@ class Components
     }
 
     /**
+     * Paginate
      * @return \PHPixie\Paginate
      */
     public function paginate()
@@ -139,6 +161,7 @@ class Components
     }
 
     /**
+     * ORM plugin for Paginate
      * @return \PHPixie\PaginateORM
      */
     public function paginateOrm()
@@ -147,13 +170,18 @@ class Components
     }
     
     /**
+     * Validate
      * @return \PHPixie\Validate
      */
     public function validate()
     {
         return $this->instance('validate');
     }
-    
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
@@ -163,31 +191,46 @@ class Components
         
         return $this->instances[$name];
     }
-    
+
+    /**
+     * @return \PHPixie\Slice
+     */
     protected function buildSlice()
     {
         return new \PHPixie\Slice();
     }
-    
+
+    /**
+     * @return \PHPixie\Config
+     */
     protected function buildConfig()
     {
         return new \PHPixie\Config(
             $this->slice()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Debug
+     */
     protected function buildDebug()
     {
         return new \PHPixie\Debug();
     }
-    
+
+    /**
+     * @return \PHPixie\Database
+     */
     protected function buildDatabase()
     {
         return new \PHPixie\Database(
             $this->configuration()->databaseConfig()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\ORM
+     */
     protected function buildOrm()
     {
         $configuration = $this->builder->configuration();
@@ -198,12 +241,18 @@ class Components
             $configuration->ormWrappers()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Filesystem
+     */
     protected function buildFilesystem()
     {
         return new \PHPixie\Filesystem();
     }
-    
+
+    /**
+     * @return \PHPixie\Template
+     */
     protected function buildTemplate()
     {
         $configuration = $this->builder->configuration();
@@ -218,45 +267,66 @@ class Components
             $extensions->templateFormats()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\HTTP
+     */
     protected function buildHttp()
     {
         return new \PHPixie\HTTP(
             $this->slice()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\HTTPProcessors
+     */
     protected function buildHttpProcessors()
     {
         return new \PHPixie\HTTPProcessors(
             $this->http()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\AuthProcessors
+     */
     protected function buildAuthProcessors()
     {
         return new \PHPixie\AuthProcessors(
             $this->auth()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Processors
+     */
     protected function buildProcessors()
     {
         return new \PHPixie\Processors();
     }
-    
+
+    /**
+     * @return \PHPixie\Route
+     */
     protected function buildRoute()
     {
         return new \PHPixie\Route();
     }
-    
+
+    /**
+     * @return \PHPixie\Security
+     */
     protected function buildSecurity()
     {
         return new \PHPixie\Security(
             $this->database()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Auth
+     */
     protected function buildAuth()
     {
         $configuration = $this->configuration();
@@ -268,24 +338,36 @@ class Components
             $this->builder->context()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Paginate
+     */
     protected function buildPaginate()
     {
         return new \PHPixie\Paginate();
     }
-    
+
+    /**
+     * @return \PHPixie\PaginateORM
+     */
     protected function buildPaginateOrm()
     {
         return new \PHPixie\PaginateORM(
             $this->paginate()
         );
     }
-    
+
+    /**
+     * @return \PHPixie\Validate
+     */
     protected function buildValidate()
     {
         return new \PHPixie\Validate();
     }
-    
+
+    /**
+     * @return Configuration
+     */
     protected function configuration()
     {
         return $this->builder->configuration();

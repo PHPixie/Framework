@@ -2,11 +2,18 @@
 
 namespace PHPixie\Framework;
 
+/**
+ * Base framework factory
+ */
 abstract class Builder
 {
+    /**
+     * @var array
+     */
     protected $instances = array();
 
     /**
+     * Assets registry
      * @return Assets
      */
     public function assets()
@@ -15,6 +22,7 @@ abstract class Builder
     }
 
     /**
+     * Components factory
      * @return Components
      */
     public function components()
@@ -23,6 +31,7 @@ abstract class Builder
     }
 
     /**
+     * Context container (e.g. for HTTP context)
      * @return Context
      */
     public function context()
@@ -31,6 +40,7 @@ abstract class Builder
     }
 
     /**
+     * Extensions registry
      * @return Extensions
      */
     public function extensions()
@@ -39,6 +49,7 @@ abstract class Builder
     }
 
     /**
+     * HTTP handler
      * @return HTTP
      */
     public function http()
@@ -47,13 +58,18 @@ abstract class Builder
     }
 
     /**
+     * Processors factory
      * @return Processors
      */
     public function processors()
     {
         return $this->instance('processors');
     }
-    
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
@@ -63,38 +79,60 @@ abstract class Builder
         
         return $this->instances[$name];
     }
-    
+
+    /**
+     * @return Assets
+     */
     protected function buildAssets()
     {
         return new Assets(
             $this->components()
         );
     }
-    
+
+    /**
+     * @return Components
+     */
     protected function buildComponents()
     {
         return new Components($this);
     }
-    
+
+    /**
+     * @return Context
+     */
     protected function buildContext()
     {
         return new Context($this);
     }
-    
+
+    /**
+     * @return Extensions
+     */
     protected function buildExtensions()
     {
         return new Extensions($this);
     }
-    
+
+    /**
+     * @return HTTP
+     */
     protected function buildHttp()
     {
         return new HTTP($this);
     }
-    
+
+    /**
+     * @return Processors
+     */
     protected function buildProcessors()
     {
         return new Processors($this);
     }
-    
+
+    /**
+     * Framework Configuration
+     * @return Configuration
+     */
     abstract public function configuration();
 }

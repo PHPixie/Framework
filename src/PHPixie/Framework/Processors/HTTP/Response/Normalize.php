@@ -2,15 +2,31 @@
 
 namespace PHPixie\Framework\Processors\HTTP\Response;
 
+/**
+ * Converts data into HTTP responses
+ */
 class Normalize implements \PHPixie\Processors\Processor
 {
+    /**
+     * @var \PHPixie\HTTP
+     */
     protected $http;
-    
+
+    /**
+     * Constructor
+     * @param \PHPixie\HTTP $http
+     */
     public function __construct($http)
     {
         $this->http = $http;
     }
-    
+
+    /**
+     * Convert data to a HTTP response
+     * @param mixed $value
+     * @return \PHPixie\HTTP\Responses\Response
+     * @throws \PHPixie\HTTPProcessors\Exception If data type is not supported
+     */
     public function process($value)
     {
         if($value instanceof \PHPixie\HTTP\Responses\Response) {

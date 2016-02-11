@@ -2,34 +2,67 @@
 
 namespace PHPixie\Framework;
 
+use PHPixie\Processors\Processor;
+use PHPixie\Slice\Data;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+/**
+ * HTTP processing chain
+ *
+ * Override its methods to hook into request processing
+ */
 class HTTP
 {
     /**
      * @type Builder
      */
     protected $builder;
+
+    /**
+     * @var Data
+     */
     protected $configData;
-    
+
+    /**
+     * @var array
+     */
     protected $instances = array();
-    
+
+    /**
+     * Constructor
+     * @param Builder $builder
+     */
     public function __construct($builder)
     {
         $this->builder = $builder;
     }
-    
+
+    /**
+     * Get HTTP processor
+     *
+     * The resulting processor accepts a PSR7 ServerRequest
+     * and returns a PHPixie Response
+     * @return Processor
+     */
     public function processor()
     {
         return $this->instance('processor');
     }
 
     /**
+     * HTTP route translator
      * @return \PHPixie\Route\Translator
      */
     public function routeTranslator()
     {
         return $this->instance('routeTranslator');
     }
-    
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
     protected function instance($name)
     {
         if(!array_key_exists($name, $this->instances)) {
@@ -39,7 +72,10 @@ class HTTP
         
         return $this->instances[$name];
     }
-    
+
+    /**
+     * @return \PHPixie\Route\Translator
+     */
     protected function buildRouteTranslator()
     {
         $route = $this->builder->components()->route();
@@ -51,7 +87,12 @@ class HTTP
             $this->builder->context()
         );
     }
-    
+
+    /**
+     * Process a PHP request from globals
+     * and output the response
+     * @return void
+     */
     public function processSapiRequest()
     {
         $http = $this->builder->components()->http();
@@ -64,7 +105,12 @@ class HTTP
             $this->builder->context()->httpContext()
         );
     }
-    
+
+    /**
+     * Process a PSR7 ServerRequest into a PSR7 Response
+     * @param ServerRequestInterface $serverRequest
+     * @return ResponseInterface
+     */
     public function processServerRequest($serverRequest)
     {
         $response = $this->processor()->process($serverRequest);
@@ -73,7 +119,11 @@ class HTTP
             $this->builder->context()->httpContext()
         );
     }
-    
+
+    /**
+     * Builds the HTTP request processor
+     * @return Processor
+     */
     protected function buildProcessor()
     {
         $processors = $this->builder->components()->processors();
@@ -91,7 +141,12 @@ class HTTP
             $this->exceptionProcessor()
         );
     }
-    
+
+    /**
+     * Builds the processor that takes care
+     * of generating the PHPixie HTTP Request
+     * @return Processor
+     */
     protected function requestProcessor()
     {
         $components = $this->builder->components();
@@ -105,7 +160,12 @@ class HTTP
             $httpProcessors->buildRequest()
         ));
     }
-    
+
+    /**
+     * Builds the processor that takes care
+     * of setting contexts (e.g. HTTP and Auth context)
+     * @return Processor
+     */
     protected function contextProcessor()
     {
         $components = $this->builder->components();
@@ -121,7 +181,12 @@ class HTTP
             $authProcessors->updateContext($context),
         ));
     }
-    
+
+    /**
+     * Builds the processor that takes care
+     * of parsing the Request and populating route data
+     * @return Processor
+     */
     protected function parseRouteProcessor()
     {
         $frameworkProcessors = $this->builder->processors();
@@ -129,7 +194,17 @@ class HTTP
         $translator = $this->routeTranslator();
         return $frameworkProcessors->httpParseRoute($translator);
     }
-    
+
+    /**
+     * Builds the processor that takes care
+     * of dispatching the request.
+     *
+     * If you want to process the request before
+     * it reaches your code, you can do that
+     * by overriding this method and adding your own
+     * processor to the chain.
+     * @return Processor
+     */
     protected function dispatchProcessor()
     {
         $processors          = $this->builder->components()->processors();
@@ -140,7 +215,11 @@ class HTTP
             $frameworkProcessors->httpNormalizeResponse(),
         ));
     }
-    
+
+    /**
+     * Builds the processor that handles uncaught exception
+     * @return Processor
+     */
     protected function exceptionProcessor()
     {
         $frameworkProcessors = $this->builder->processors();
@@ -150,7 +229,11 @@ class HTTP
             $httpConfig->slice('exceptionResponse')
         );
     }
-    
+
+    /**
+     * Builds the processor that handles non-existing urls
+     * @return Processor
+     */
     protected function notFoundProcessor()
     {
         $frameworkProcessors = $this->builder->processors();
