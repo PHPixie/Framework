@@ -177,6 +177,15 @@ class Components
     {
         return $this->instance('validate');
     }
+    
+    /**
+     * Validate
+     * @return \PHPixie\Image
+     */
+    public function image()
+    {
+        return $this->instance('image');
+    }
 
     /**
      * @param string $name
@@ -363,6 +372,16 @@ class Components
     protected function buildValidate()
     {
         return new \PHPixie\Validate();
+    }
+    
+    /**
+     * @return \PHPixie\Image
+     */
+    protected function buildImage()
+    {
+        return new \PHPixie\Image(
+            $this->configuration->imageDefaultDriver()
+        );
     }
 
     /**

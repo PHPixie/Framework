@@ -78,4 +78,10 @@ interface Configuration
      * @return Repositories
      */
     public function authRepositories();
+    
+    /**
+     * Name of the default driver to use with Image component
+     * @return string
+     */
+    public function imageDefaultDriver();
 }
