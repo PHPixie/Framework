@@ -243,4 +243,55 @@ class HTTP
             $httpConfig->slice('notFoundResponse')
         );
     }
+    
+    /**
+     * Generate a path from route path and attributes
+     * @param string $resolverPath
+     * @param array $attributes
+     * @return string
+     */
+    public function generatePath($resolverPath = null, $attributes = array())
+    {
+        return $this->routeTranslator()->generatePath(
+            $resolverPath,
+            $attributes
+        );
+    }
+    
+    /**
+     * Generate a PSR-7 URI from route path and attributes
+     * @param string $resolverPath
+     * @param array $attributes
+     * @param boolean $withHost Whether to include host in the URI
+     * @return \PHPixie\HTTP\Messages\URI\Implementation
+     */
+    public function generateUri(
+        $resolverPath  = null,
+        $attributes    = array(),
+        $withHost      = false
+    )
+    {
+        return $this->routeTranslator()->generateUri(
+            $resolverPath,
+            $attributes,
+            $withHost
+        );
+    }
+    
+    /**
+     * Generate a redirect response from route path and attributes
+     * @param string $resolverPath
+     * @param array $attributes
+     * @return \PHPixie\HTTP\Responses\Response
+     */
+    public function redirect($resolverPath = null, $attributes = array())
+    {
+        $path = $this->generatePath(
+            $route,
+            $params
+        );
+        
+        $http = $this->builder->components()->http();
+        return $http->responses()->redirect($path);
+    }
 }
