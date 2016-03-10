@@ -284,7 +284,7 @@ class HTTP
      * @param array $attributes
      * @return \PHPixie\HTTP\Responses\Response
      */
-    public function redirect($resolverPath = null, $attributes = array())
+    public function redirectResponse($resolverPath = null, $attributes = array())
     {
         $path = $this->generatePath(
             $resolverPath,
