@@ -32,7 +32,8 @@
         "phpixie/auth-processors": "~3.0",
         "phpixie/paginate": "~3.0",
         "phpixie/paginate-orm": "~3.0",
-        "phpixie/image": "~3.0"
+        "phpixie/image": "~3.0",
+        "phpixie/validate": "~3.0"
     },
     "require-dev": {
         "phpixie/test": "~3.0"
