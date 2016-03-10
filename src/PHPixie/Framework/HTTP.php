@@ -287,8 +287,8 @@ class HTTP
     public function redirect($resolverPath = null, $attributes = array())
     {
         $path = $this->generatePath(
-            $route,
-            $params
+            $resolverPath,
+            $attributes
         );
         
         $http = $this->builder->components()->http();
