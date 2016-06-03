@@ -168,7 +168,7 @@ class Components
     {
         return $this->instance('paginateOrm');
     }
-    
+
     /**
      * Validate
      * @return \PHPixie\Validate
@@ -177,7 +177,7 @@ class Components
     {
         return $this->instance('validate');
     }
-    
+
     /**
      * Validate
      * @return \PHPixie\Image
@@ -185,6 +185,15 @@ class Components
     public function image()
     {
         return $this->instance('image');
+    }
+
+    /**
+     * Validate
+     * @return \PHPixie\Social
+     */
+    public function social()
+    {
+        return $this->instance('social');
     }
 
     /**
@@ -197,7 +206,7 @@ class Components
             $method = 'build'.ucfirst($name);
             $this->instances[$name] = $this->$method();
         }
-        
+
         return $this->instances[$name];
     }
 
@@ -243,7 +252,7 @@ class Components
     protected function buildOrm()
     {
         $configuration = $this->builder->configuration();
-        
+
         return new \PHPixie\ORM(
             $this->database(),
             $configuration->ormConfig(),
@@ -266,7 +275,7 @@ class Components
     {
         $configuration = $this->builder->configuration();
         $extensions    = $this->builder->extensions();
-        
+
         return new \PHPixie\Template(
             $this->slice(),
             $configuration->templateLocator(),
@@ -339,7 +348,7 @@ class Components
     protected function buildAuth()
     {
         $configuration = $this->configuration();
-        
+
         return new \PHPixie\Auth(
             $configuration->authConfig(),
             $configuration->authRepositories(),
@@ -373,14 +382,24 @@ class Components
     {
         return new \PHPixie\Validate();
     }
-    
+
     /**
      * @return \PHPixie\Image
      */
     protected function buildImage()
     {
         return new \PHPixie\Image(
-            $this->configuration->imageDefaultDriver()
+            $this->configuration()->imageDefaultDriver()
+        );
+    }
+
+    /**
+     * @return \PHPixie\Social
+     */
+    protected function buildSocial()
+    {
+        return new \PHPixie\Social(
+            $this->configuration()->socialConfig()
         );
     }
 
@@ -391,5 +410,5 @@ class Components
     {
         return $this->builder->configuration();
     }
-    
+
 }

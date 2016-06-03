@@ -69,7 +69,7 @@ class HTTP
             $method = 'build'.ucfirst($name);
             $this->instances[$name] = $this->$method();
         }
-        
+
         return $this->instances[$name];
     }
 
@@ -80,7 +80,7 @@ class HTTP
     {
         $route = $this->builder->components()->route();
         $httpConfig = $this->builder->configuration()->httpConfig();
-        
+
         return $route->translator(
             $this->builder->configuration()->httpRouteResolver(),
             $httpConfig->slice('translator'),
@@ -97,9 +97,9 @@ class HTTP
     {
         $http = $this->builder->components()->http();
         $serverRequest = $http->sapiServerRequest();
-        
+
         $response = $this->processor()->process($serverRequest);
-        
+
         $http->output(
             $response,
             $this->builder->context()->httpContext()
@@ -114,7 +114,7 @@ class HTTP
     public function processServerRequest($serverRequest)
     {
         $response = $this->processor()->process($serverRequest);
-        
+
         return $response->asResponseMessage(
             $this->builder->context()->httpContext()
         );
@@ -127,7 +127,7 @@ class HTTP
     protected function buildProcessor()
     {
         $processors = $this->builder->components()->processors();
-        
+
         return $processors->catchException(
             $processors->chain(array(
                 $this->requestProcessor(),
@@ -150,10 +150,10 @@ class HTTP
     protected function requestProcessor()
     {
         $components = $this->builder->components();
-        
+
         $processors     = $components->processors();
         $httpProcessors = $components->httpProcessors();
-        
+
         return $processors->chain(array(
             $httpProcessors->parseBody(),
             $this->parseRouteProcessor(),
@@ -169,13 +169,13 @@ class HTTP
     protected function contextProcessor()
     {
         $components = $this->builder->components();
-        
+
         $processors     = $components->processors();
         $httpProcessors = $components->httpProcessors();
         $authProcessors = $components->authProcessors();
-        
+
         $context = $this->builder->context();
-        
+
         return $processors->chain(array(
             $httpProcessors->updateContext($context),
             $authProcessors->updateContext($context),
@@ -190,7 +190,7 @@ class HTTP
     protected function parseRouteProcessor()
     {
         $frameworkProcessors = $this->builder->processors();
-        
+
         $translator = $this->routeTranslator();
         return $frameworkProcessors->httpParseRoute($translator);
     }
@@ -209,7 +209,7 @@ class HTTP
     {
         $processors          = $this->builder->components()->processors();
         $frameworkProcessors = $this->builder->processors();
-        
+
         return $processors->chain(array(
             $this->builder->configuration()->httpProcessor(),
             $frameworkProcessors->httpNormalizeResponse(),
@@ -224,7 +224,7 @@ class HTTP
     {
         $frameworkProcessors = $this->builder->processors();
         $httpConfig = $this->builder->configuration()->httpConfig();
-        
+
         return $frameworkProcessors->httpExceptionResponse(
             $httpConfig->slice('exceptionResponse')
         );
@@ -238,12 +238,12 @@ class HTTP
     {
         $frameworkProcessors = $this->builder->processors();
         $httpConfig = $this->builder->configuration()->httpConfig();
-        
+
         return $frameworkProcessors->httpNotFoundResponse(
             $httpConfig->slice('notFoundResponse')
         );
     }
-    
+
     /**
      * Generate a path from route path and attributes
      * @param string $resolverPath
@@ -257,7 +257,7 @@ class HTTP
             $attributes
         );
     }
-    
+
     /**
      * Generate a PSR-7 URI from route path and attributes
      * @param string $resolverPath
@@ -277,7 +277,7 @@ class HTTP
             $withHost
         );
     }
-    
+
     /**
      * Generate a redirect response from route path and attributes
      * @param string $resolverPath
@@ -290,7 +290,7 @@ class HTTP
             $resolverPath,
             $attributes
         );
-        
+
         $http = $this->builder->components()->http();
         return $http->responses()->redirect($path);
     }

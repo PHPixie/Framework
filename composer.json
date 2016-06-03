@@ -29,11 +29,13 @@
         "phpixie/auth-orm": "~3.0",
         "phpixie/auth-http": "~3.0",
         "phpixie/auth-login": "~3.0",
+        "phpixie/auth-social": "~3.0",
         "phpixie/auth-processors": "~3.0",
         "phpixie/paginate": "~3.0",
         "phpixie/paginate-orm": "~3.0",
         "phpixie/image": "~3.0",
-        "phpixie/validate": "~3.0"
+        "phpixie/validate": "~3.0",
+        "phpixie/social": "~3.0
     },
     "require-dev": {
         "phpixie/test": "~3.0"

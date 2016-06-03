@@ -55,7 +55,8 @@ class Extensions
     {
         return array(
             $this->buildAuthLogin()->providers(),
-            $this->buildAuthHttp()->providers()
+            $this->buildAuthHttp()->providers(),
+            $this->buildAuthSocial()->providers()
         );
     }
 
@@ -79,6 +80,17 @@ class Extensions
         return new \PHPixie\AuthHTTP(
             $this->components()->security(),
             $this->builder->context()
+        );
+    }
+
+    /**
+     * Social extension for the Auth component
+     * @return \PHPixie\AuthSocial
+     */
+    public function buildAuthSocial()
+    {
+        return new \PHPixie\AuthSocial(
+            $this->components()->social()
         );
     }
 
