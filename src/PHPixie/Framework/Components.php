@@ -437,7 +437,7 @@ class Components
         return new \PHPixie\Console(
             $this->slice(),
             $this->cli(),
-            $this->configuration()->consoleRegistry()
+            $this->configuration()->consoleProvider()
         );
     }
 

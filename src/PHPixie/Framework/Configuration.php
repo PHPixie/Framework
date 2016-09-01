@@ -92,8 +92,8 @@ interface Configuration
     public function socialConfig();
     
     /**
-     * Console registry
-     * @return \PHPixie\Console\Registry
+     * Console command provider
+     * @return \PHPixie\Console\Registry\Provider
      */
-    public function consoleRegistry();
+    public function consoleProvider();
 }
