@@ -35,7 +35,9 @@
         "phpixie/paginate-orm": "~3.0",
         "phpixie/image": "~3.0",
         "phpixie/validate": "~3.0",
-        "phpixie/social": "~3.0"
+        "phpixie/social": "~3.0",
+        "phpixie/cli": "~3.0",
+        "phpixie/console": "~3.0"
     },
     "require-dev": {
         "phpixie/test": "~3.0"

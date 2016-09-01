@@ -52,6 +52,16 @@ abstract class Framework
     }
 
     /**
+     * Process Console command built from PHP globals
+     * and output the response
+     * @return void
+     */
+    public function processConsoleSapiCommand()
+    {
+        $this->builder->console()->processSapiCommand();
+    }
+    
+    /**
      * Register error and exception handlers
      * @param bool $shutdownLog Whether to output log contents at shutdown
      * @param bool $exception Whether to catch and dump exceptions

@@ -195,6 +195,24 @@ class Components
     {
         return $this->instance('social');
     }
+    
+    /**
+     * CLI
+     * @return \PHPixie\CLI
+     */
+    public function cli()
+    {
+        return $this->instance('cli');
+    }
+    
+    /**
+     * Console
+     * @return \PHPixie\Console
+     */
+    public function console()
+    {
+        return $this->instance('console');
+    }
 
     /**
      * @param string $name
@@ -400,6 +418,26 @@ class Components
     {
         return new \PHPixie\Social(
             $this->configuration()->socialConfig()
+        );
+    }
+    
+    /**
+     * @return \PHPixie\CLI
+     */
+    protected function buildCli()
+    {
+        return new \PHPixie\CLI();
+    }
+    
+    /**
+     * @return \PHPixie\Console
+     */
+    protected function buildConsole()
+    {
+        return new \PHPixie\Console(
+            $this->slice(),
+            $this->cli(),
+            $this->configuration()->consoleRegistry()
         );
     }
 

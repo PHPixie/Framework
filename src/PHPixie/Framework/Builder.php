@@ -56,6 +56,15 @@ abstract class Builder
     {
         return $this->instance('http');
     }
+    
+    /**
+     * Console handler
+     * @return Console
+     */
+    public function console()
+    {
+        return $this->instance('console');
+    }
 
     /**
      * Processors factory
@@ -120,6 +129,14 @@ abstract class Builder
     protected function buildHttp()
     {
         return new HTTP($this);
+    }
+    
+    /**
+     * @return Console
+     */
+    protected function buildConsole()
+    {
+        return new Console($this);
     }
 
     /**

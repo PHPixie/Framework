@@ -90,4 +90,10 @@ interface Configuration
      * @return Data
      */
     public function socialConfig();
+    
+    /**
+     * Console registry
+     * @return \PHPixie\Console\Registry
+     */
+    public function consoleRegistry();
 }

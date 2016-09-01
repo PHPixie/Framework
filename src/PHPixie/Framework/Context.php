@@ -6,7 +6,8 @@ namespace PHPixie\Framework;
  * Context containers
  */
 class Context implements \PHPixie\HTTP\Context\Container\Settable,
-                         \PHPixie\Auth\Context\Container\Settable
+                         \PHPixie\Auth\Context\Container\Settable,
+                         \PHPixie\CLI\Context\Container\Settable
 {
     /**
      * HTTP context
@@ -19,6 +20,12 @@ class Context implements \PHPixie\HTTP\Context\Container\Settable,
      * @var \PHPixie\Auth\Context
      */
     protected $authContext;
+                             
+    /**
+     * CLI context
+     * @var \PHPixie\CLI\Context
+     */
+    protected $cliContext;
 
     /**
      * @return \PHPixie\HTTP\Context
@@ -53,5 +60,23 @@ class Context implements \PHPixie\HTTP\Context\Container\Settable,
     public function setAuthContext($authContext)
     {
         $this->authContext = $authContext;
+    }
+                             
+    /**
+     * CLI context
+     * @return \PHPixie\CLI\Context
+     */
+    public function cliContext()
+    {
+        return $this->cliContext;
+    }
+
+    /**
+     * Set CLI context
+     * @param  \PHPixie\CLI\Context $cliContext
+     */
+    public function setCliContext($cliContext)
+    {
+        $this->cliContext = $cliContext;
     }
 }
