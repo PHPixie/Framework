@@ -58,7 +58,7 @@ abstract class Framework
      */
     public function processConsoleSapiCommand()
     {
-        $this->builder->console()->processSapiCommand();
+        return $this->builder->console()->processSapiCommand();
     }
     
     /**
