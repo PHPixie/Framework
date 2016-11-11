@@ -215,6 +215,15 @@ class Components
     }
 
     /**
+     * Migrate
+     * @return \PHPixie\Migrate
+     */
+    public function migrate()
+    {
+        return $this->instance('migrate');
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
@@ -438,6 +447,20 @@ class Components
             $this->slice(),
             $this->cli(),
             $this->configuration()->consoleProvider()
+        );
+    }
+    
+    /**
+     * @return \PHPixie\Migrate
+     */
+    protected function buildMigrate()
+    {
+        $configuration = $this->configuration();
+        
+        return new \PHPixie\Migrate(
+            $this->database(),
+            $configuration->migrateRoot(),
+            $configuration->migrateConfig()
         );
     }
 

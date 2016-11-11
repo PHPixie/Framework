@@ -96,4 +96,16 @@ interface Configuration
      * @return \PHPixie\Console\Registry\Provider
      */
     public function consoleProvider();
+    
+    /**
+     * Migrations configuration
+     * @return Data
+     */
+    public function migrateConfig();
+    
+    /**
+     * Migrations root
+     * @return Root
+     */
+    public function migrateRoot();
 }
