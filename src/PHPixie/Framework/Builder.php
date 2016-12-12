@@ -74,6 +74,15 @@ abstract class Builder
     {
         return $this->instance('processors');
     }
+    
+    /**
+     * Logger
+     * @return \Psr\Log\Logger|null
+     */
+    public function logger()
+    {
+        return $this->instance('logger');
+    }
 
     /**
      * @param string $name
@@ -145,6 +154,14 @@ abstract class Builder
     protected function buildProcessors()
     {
         return new Processors($this);
+    }
+    
+    /**
+     * @return \Psr\Log\Logger|null
+     */
+    protected function buildLogger()
+    {
+        return null;
     }
 
     /**

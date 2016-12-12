@@ -269,7 +269,8 @@ class Components
     protected function buildDatabase()
     {
         return new \PHPixie\Database(
-            $this->configuration()->databaseConfig()
+            $this->configuration()->databaseConfig(),
+            $this->builder->logger()
         );
     }
 
