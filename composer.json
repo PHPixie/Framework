@@ -39,6 +39,7 @@
         "phpixie/cli": "~3.0",
         "phpixie/console": "~3.0",
         "phpixie/migrate": "~3.0",
+        "phpixie/cache": "~3.0",
         "psr/log": "~1.0.2"
     },
     "require-dev": {

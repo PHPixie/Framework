@@ -224,6 +224,15 @@ class Components
     }
 
     /**
+     * Migrate
+     * @return \PHPixie\Cache
+     */
+    public function cache()
+    {
+        return $this->instance('cache');
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
@@ -462,6 +471,19 @@ class Components
             $this->database(),
             $configuration->migrateRoot(),
             $configuration->migrateConfig()
+        );
+    }
+
+    /**
+     * @return \PHPixie\Cache
+     */
+    protected function buildCache()
+    {
+        $configuration = $this->configuration();
+
+        return new \PHPixie\Cache(
+            $configuration->cacheConfig(),
+            $configuration->cacheRoot()
         );
     }
 

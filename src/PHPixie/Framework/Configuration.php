@@ -108,4 +108,16 @@ interface Configuration
      * @return Root
      */
     public function migrateRoot();
+
+    /**
+     * Cache configuration
+     * @return Data
+     */
+    public function cacheConfig();
+
+    /**
+     * Cache root
+     * @return Root
+     */
+    public function cacheRoot();
 }
