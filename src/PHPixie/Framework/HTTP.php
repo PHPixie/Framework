@@ -4,6 +4,7 @@ namespace PHPixie\Framework;
 
 use PHPixie\Processors\Processor;
 use PHPixie\Slice\Data;
+use PHPixie\HTTP\Request;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -242,6 +243,16 @@ class HTTP
         return $frameworkProcessors->httpNotFoundResponse(
             $httpConfig->slice('notFoundResponse')
         );
+    }
+    
+    /**
+     * Build a page not found response
+     * @param Request mixed
+     * @return mixed
+     */
+    public function notFoundResponse($request)
+    {
+        return $this->notFoundProcessor()->process($request);
     }
 
     /**
